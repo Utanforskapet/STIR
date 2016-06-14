@@ -1,0 +1,28 @@
+<form ua-login>
+  <ion-view title="Log In">
+    <ion-content>
+
+      <label class="item">
+    <button class="button button-block button-positive" ng-click="login()">
+    Login with Facebook
+    </button>
+    </label>
+
+          <span ng-show="!loading"></span>
+          <i ng-show="loading" class="ion-loading-b"></i>
+        </button>
+        <!--p class="text-center">
+          <a href="#/forgot-password">Forgot password?</a>
+        </p-->
+        <p class="text-center">
+          <a href="#/signup">Sign Up</a>
+        </p>
+      </div>
+    </ion-content>
+  </ion-view>
+  <div class="bar bar-footer bar-assertive" ng-show="error">
+    <div class="title">{{ error.message }}</div>
+  </div>
+</form>
+
+

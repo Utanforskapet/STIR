@@ -5,9 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 'starter.services', 'ngCordova'])
+angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.controllers', 'starter.services', 'ngCordova', 'ngOpenFB'])
+
 //angular.module('starter', ['ionic', 'ngCordova'])
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, ngFB) {
+  ngFB.init({appId: '629536390529729'});
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -37,6 +39,12 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
+
+  .state('login', {
+   url: '/login',
+   controller: 'loginCtrl',
+   templateUrl: 'templates/login.html'
+})
 
   // Each tab has its own nav history stack:
 
@@ -90,27 +98,6 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/location');
+  $urlRouterProvider.otherwise('/login');
 
 });
-
-
-/*KARTA 
- var options = {timeout: 10000, enableHighAccuracy: true};
- 
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
- 
-    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
- 
-    var mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
- 
-    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
- 
-  }, function(error){
-    console.log("Could not get location");
-  });
-/* KARTA */
