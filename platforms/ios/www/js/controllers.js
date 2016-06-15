@@ -1,4 +1,38 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase'])
+
+.controller('loginCtrl', function($scope, $firebaseAuth, $state) {
+  $scope.login = function() {
+
+    var ref = new Firebase('https://STIR.firebaseio.com');
+
+    var authObject = $firebaseAuth(ref);
+
+    authObject.$authWithOAuthPopup('facebook').then(function(authData) {
+        console.log(authData);
+     //   $location.url('/tab.location');
+
+      //Go to location when logged in
+       $state.go('tab.location');
+
+      /* REDIRECTA TILL KARTAN 
+      Behövs dessa create och close funktioner???
+      $scope.create = function() {
+        console.log("hej hej");
+            $state.go('tab.location');
+      };
+      $scope.close = function() { 
+       $state.go('tab.location'); 
+      };
+        REDIRECTA TILL KARTAN */
+
+    }).catch(function(error) {
+          console.log('error' . error);
+
+    })
+    
+}
+
+})
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation) {})
 
@@ -21,10 +55,17 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function($scope, ngFB) {
+  ngFB.api({
+        path: '/me',
+        params: {fields: 'id,name'}
+    }).then(
+        function (user) {
+            $scope.user = user;
+        },
+        function (error) {
+            alert('Facebook error: ' + error.error_description);
+        });
 })
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation) {
@@ -39,10 +80,27 @@ angular.module('starter.controllers', [])
     var mapOptions = {
       center: latLng,
       zoom: 15,
+      mapTypeControl: false,
+      scaleControl: false,
+      navigationControl: false,
+      streetViewControl: false,
+      scrollwheel: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
  
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+
+    //Wait until the map is loaded
+    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+ 
+      var marker = new google.maps.Marker({
+      map: $scope.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng
+  });      
+ 
+});
  
   }, function(error){
     console.log("Could not get location");
@@ -51,26 +109,9 @@ angular.module('starter.controllers', [])
 
   var deploy = new Ionic.Deploy();
   
-  // Update app code with new release from Ionic Deploy
-  $scope.doUpdate = function() {
-    deploy.update().then(function(res) {
-      console.log('Ionic Deploy: Update Success! ', res);
-    }, function(err) {
-      console.log('Ionic Deploy: Update error! ', err);
-    }, function(prog) {
-      console.log('Ionic Deploy: Progress... ', prog);
-    });
-  };
+})
 
-  // Check Ionic Deploy for new code
-  $scope.checkForUpdates = function() {
-    console.log('Ionic Deploy: Checking for updates');
-    deploy.check().then(function(hasUpdate) {
-      console.log('Ionic Deploy: Update available: ' + hasUpdate);
-      $scope.hasUpdate = hasUpdate;
-    }, function(err) {
-      console.error('Ionic Deploy: Unable to check for updates', err);
-    });
-  }
+
+.controller('recipesCtrl', function($scope) {
 
 });
