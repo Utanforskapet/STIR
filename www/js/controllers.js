@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase'])
 
 
-.controller('loginCtrl', function($scope, $firebaseAuth) {
+.controller('loginCtrl', function($scope, $firebaseAuth, $state) {
   $scope.login = function() {
 
     var ref = new Firebase('https://STIR.firebaseio.com');
@@ -10,13 +10,26 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
 
     authObject.$authWithOAuthPopup('facebook').then(function(authData) {
         console.log(authData);
+     //   $location.url('/tab.location');
 
-        /* REDIRECTA TILL KARTAN */
+       $state.go('tab.location');
+      //  $state.go('the-state-name-in-quotes')
+      /* REDIRECTA TILL KARTAN 
+      $scope.create = function() {
+        console.log("hej hej");
+            $state.go('tab.location');
+      };
+      
+   /*   $scope.close = function() { 
+       $state.go('tab.location'); 
+      };
+       /* REDIRECTA TILL KARTAN */
 
     }).catch(function(error) {
           console.log('error' . error);
 
     })
+    
 }
 
 })
