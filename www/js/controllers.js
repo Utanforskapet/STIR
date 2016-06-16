@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase'])
+angular.module('starter.controllers', ['starter.services', 'firebase'])
 
 .controller('loginCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
 
@@ -16,6 +16,38 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
       //  console.log(authData);
         $rootScope.authData = authData;
         console.log($rootScope.authData);
+
+/*SAVE DATA TO DATABASE */
+
+// we would probably save a profile when we register new users on our site
+// we could also read the profile to see if it's null
+// here we will just simulate this with an isNewUser boolean
+var isNewUser = true;
+
+ref.onAuth(function(authData) {
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+    ref.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData),
+      img: getImg(authData),
+    });
+  }
+});
+
+function getName(authData) {
+  return authData.facebook.displayName;
+
+}
+
+function getImg(authData) {
+  return authData.facebook.profileImageURL;
+
+}
+/*SAVE DATA TO DATABASE */
+
+
      //   $location.url('/tab.location');
 
       //Go to location when logged in
@@ -60,27 +92,46 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, ngFB) {
-  ngFB.api({
-        path: '/me',
-        params: {fields: 'id,name'}
-    }).then(
-        function (user) {
-            $scope.user = user;
-        },
-        function (error) {
-            alert('Facebook error: ' + error.error_description);
-        });
+.controller('AccountCtrl', function($scope, $firebaseAuth) {
+
+   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+
+   var authObject = $firebaseAuth(ref);
+
+  ref.orderByKey().on("value", function(snapshot) {
+  snapshot.forEach(function(data) {
+       console.log( data.key() +  data.val());
+
+       if(data.key() == 'img') {
+
+          image = data.val();
+          console.log(image);
+
+          }
+    });
+  });  
+
 })
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope, $firebaseAuth) {
 
-   var ref = new Firebase('https://STIR.firebaseio.com');
+  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
 
-    var authObject = $firebaseAuth(ref);
+  var authObject = $firebaseAuth(ref);
   //  $scope.Location = sync.$asArray();
    
-   console.log($rootScope.authData);
+  // console.log($rootScope.authData);
+
+// Attach an asynchronous callback to read the data at our posts reference
+/*ref.on("value", function(snapshot) {
+  console.log(snapshot.val());
+  var value = snapshot.val();
+  console.log("Name: " + value.name);
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+*/
+
 
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
@@ -100,39 +151,39 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
-    if($rootScope.authData) {
-      console.log($rootScope.authData);
-      console.log($rootScope.authData.facebook.displayName);
-    }
-    else {
-      console.log('no data found');
-    }
-    
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
   /* profileImage = $rootScope.authData.facebook.profileImageURL = {
     'border-radius': '50px'
   }*/
+  ref.orderByKey().on("value", function(snapshot) {
+  snapshot.forEach(function(data) {
+       console.log( data.key() +  data.val());
+
+       if(data.key() == 'img') {
+
+          image = data.val();
+          console.log(image);
 
     //Wait until the map is loaded
-    google.maps.event.addListenerOnce($scope.map, 'idle', function(){ 
+     google.maps.event.addListenerOnce($scope.map, 'idle', function(){ 
       var marker = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
       position: latLng,
-    //  title: $rootScope.authData.facebook.displayName,
-      icon: $rootScope.authData.facebook.profileImageURL
+      icon: image
   });      
 });
+
+  }
+    });
+  });
  
   }, function(error){
     console.log("Could not get location");
   });
 /*KARTA */
-
-
-
 
 
   var deploy = new Ionic.Deploy();

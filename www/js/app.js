@@ -5,11 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.controllers', 'starter.services', 'ngCordova', 'ngOpenFB'])
+angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 //angular.module('starter', ['ionic', 'ngCordova'])
-.run(function($ionicPlatform, ngFB) {
-  ngFB.init({appId: '629536390529729'});
+.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
