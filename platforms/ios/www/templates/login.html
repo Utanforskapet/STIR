@@ -1,12 +1,32 @@
 <form ua-login>
-  <ion-view title="Log In">
+    
+    <ion-view title="Login"> 
     <ion-content>
+    <nav-page hide-header-bar="true">
 
-      <label class="item">
-    <button class="button button-block button-positive" ng-click="login()">
+    <div id="main-wrap">
+      <img class="login" src="../img/logo.png"> 
+
+    <div id="left-column" class="overlay">
+        <img id="image-login" src="../img/Photo6.jpeg" alt="" width="100%" height="25%">
+        <img id="image-login" src="../img/Photo8.jpeg" alt="" width="100%" height="25%">
+        <img id="image-login"  src="../img/Photo6.jpeg" alt="" width="100%" height="25%">
+        <img id="image-login"  src="../img/Photo3.jpeg" alt="" width="100%" height="25%">
+    </div>
+    <div id="right-column" class="overlay">
+        <img id="image-login"  src="../img/Photo5.jpeg" alt="" width="100%" height="25%">
+        <img id="image-login"  src="../img/Photo3.jpeg" alt="" width="100%" height="25%">
+        <img id="image-login"  src="../img/Photo8.jpeg" alt="" width="100%" height="25%">
+        <img id="image-login"  src="../img/Photo5.jpeg" alt="" width="100%" height="25%">
+    </div>
+
+    <label class="item login">
+    <button class="button button-large icon-left ion-social-facebook button-positive" ng-click="login()">
     Login with Facebook
     </button>
     </label>
+
+    </div>
 
           <span ng-show="!loading"></span>
           <i ng-show="loading" class="ion-loading-b"></i>

@@ -1,14 +1,21 @@
 angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase'])
 
-.controller('loginCtrl', function($scope, $firebaseAuth, $state) {
-  $scope.login = function() {
+.controller('loginCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
 
+ /*ionic.Platform.ready(function() {
+    // hide the status bar using the StatusBar plugin
+    StatusBar.hide();
+  });*/
+
+   $scope.login = function() {
     var ref = new Firebase('https://STIR.firebaseio.com');
 
     var authObject = $firebaseAuth(ref);
 
     authObject.$authWithOAuthPopup('facebook').then(function(authData) {
-        console.log(authData);
+      //  console.log(authData);
+        $rootScope.authData = authData;
+        console.log($rootScope.authData);
      //   $location.url('/tab.location');
 
       //Go to location when logged in
@@ -29,12 +36,10 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
           console.log('error' . error);
 
     })
-    
 }
-
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation) {})
+//.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -68,7 +73,14 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
         });
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation) {
+.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope, $firebaseAuth) {
+
+   var ref = new Firebase('https://STIR.firebaseio.com');
+
+    var authObject = $firebaseAuth(ref);
+  //  $scope.Location = sync.$asArray();
+   
+   console.log($rootScope.authData);
 
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
@@ -87,25 +99,41 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB', 'firebase
       scrollwheel: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
- 
+    
+    if($rootScope.authData) {
+      console.log($rootScope.authData);
+      console.log($rootScope.authData.facebook.displayName);
+    }
+    else {
+      console.log('no data found');
+    }
+    
+
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+  /* profileImage = $rootScope.authData.facebook.profileImageURL = {
+    'border-radius': '50px'
+  }*/
 
     //Wait until the map is loaded
-    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
- 
+    google.maps.event.addListenerOnce($scope.map, 'idle', function(){ 
       var marker = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
-      position: latLng
+      position: latLng,
+    //  title: $rootScope.authData.facebook.displayName,
+      icon: $rootScope.authData.facebook.profileImageURL
   });      
- 
 });
  
   }, function(error){
     console.log("Could not get location");
   });
 /*KARTA */
+
+
+
+
 
   var deploy = new Ionic.Deploy();
   
