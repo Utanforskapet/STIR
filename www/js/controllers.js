@@ -47,7 +47,6 @@ function getImg(authData) {
 }
 /*SAVE DATA TO DATABASE */
 
-
      //   $location.url('/tab.location');
 
       //Go to location when logged in
@@ -94,23 +93,33 @@ function getImg(authData) {
 
 .controller('AccountCtrl', function($scope, $firebaseAuth) {
 
-   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
 
-   var authObject = $firebaseAuth(ref);
+  var authObject = $firebaseAuth(ref);
 
-  ref.orderByKey().on("value", function(snapshot) {
-  snapshot.forEach(function(data) {
-       console.log( data.key() +  data.val());
+ ref.orderByKey().on("value", function(snapshot) {
+       snapshot.forEach(function(data) {
+         
+       if(data.key() == 'name') {
+         name = data.val();
+         }
 
        if(data.key() == 'img') {
-
-          image = data.val();
-          console.log(image);
-
+          img = data.val();
           }
-    });
-  });  
+          
+        $scope.user ={
+         name: name,
+         img: img
+       }
+    
+       }); 
 
+      //  console.log($scope.user.img);
+        return $scope.user;
+
+ });  
+ 
 })
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope, $firebaseAuth) {
@@ -151,7 +160,6 @@ function getImg(authData) {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
-
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
   /* profileImage = $rootScope.authData.facebook.profileImageURL = {
@@ -190,7 +198,14 @@ function getImg(authData) {
   
 })
 
+.controller('recipesCtrl', function($scope, $location) {
+    
+        $scope.changeView = function(recipes){
+            $location.path('receptbanken'); // path not hash
+        }
+}) 
 
-.controller('recipesCtrl', function($scope) {
-
+.controller('receptbankCtrl', function($scope) {
+    
+    
 });

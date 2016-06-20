@@ -1,10 +1,43 @@
 <ion-view view-title="Account">
   <ion-content>
     <div class="list card">
+      <div class="account-header" >
             <div class="item pink-header" >
-               <img ng-src="../img/adam.jpg{{hash}}" alt="Description" />
+                   <div ng-controller="AccountCtrl"> 
+                <div  class="accountCenter">
+                  <img class="circle_image text-center" ng-src="{{user.img}}">
+                   </div>
+                   </div>
+                   </div>
+                    <h2 class="textStyle text-center" >{{user.name}}</h2> 
+                   <h3 class="textStyle text-center">Se profil</h3>
             </div>
             <div class="item item-body">
+
+ <div class="list">
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-gear-b"></i>
+        App-inställningar
+  </a>
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-help"></i>
+    Behöver du hjälp?
+   
+  </a>
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-person-stalker"></i>
+    Bjud in vänner
+  </a>
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-edit"></i>
+    Ge oss feedback
+  </a>
+
+</div>
                 
             </div>
         </div>
