@@ -79,4 +79,39 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+
+.factory('Recipe', function() {
+
+  var recipes = [{
+    id: 1,
+    name: 'Blåbärspaj',
+    img: 'img/photo8.jpeg',
+    recipe: '\n1 dl blåbär\n1 dl socker (drygt) \n2 msk vetemjöl \n100 g smör \n1/2 dl socker \n2 dl vetemjöl'
+    }, {
+    id: 2,
+    name: 'Spagetti och köttfärssås',
+    img: 'img/photo3.jpeg'
+  }, {
+    id: 3,
+     name: 'Potatismos och köttbullar',
+    img: 'img/photo2.jpg'
+ 
+  }];
+  //  return recipes.recipe.replace(/\n/g, '<br />');
+
+  return {
+    all: function() {
+      return recipes;
+    },
+    get: function(recipeId) {
+      for (var i = 0; i < recipes.length; i++) {
+        if (recipes[i].id === parseInt(recipeId)) {
+          return recipes[i];
+        }
+      }
+      return null;
+    }
+  };
 });

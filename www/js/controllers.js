@@ -83,7 +83,7 @@ function getImg(authData) {
 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
-    Chats.remove(chat);
+  Chats.remove(chat);
   };
 })
 
@@ -199,13 +199,17 @@ function getImg(authData) {
 })
 
 .controller('recipesCtrl', function($scope, $location) {
-    
-        $scope.changeView = function(recipes){
-            $location.path('receptbanken'); // path not hash
-        }
+    $scope.changeView = function(recipes){
+        $location.path('receptbanken'); // path not hash
+    }
 }) 
 
-.controller('receptbankCtrl', function($scope) {
+.controller('receptbankCtrl', function($scope, Recipe) {
+    $scope.recipes = Recipe.all();
     
-    
+})
+
+.controller('recipeDeatilCtrl', function($scope, $stateParams, Recipe) {
+  $scope.recipes = Recipe.get($stateParams.recipeId);
 });
+

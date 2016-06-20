@@ -96,13 +96,23 @@ angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.co
     }
   })
 
-    .state('recipes', {
+   .state('recipes', {
    url: '/receptbanken',
    controller: 'receptbankCtrl',
    templateUrl: 'templates/recipes.html'
+})
+
+//skriva om till tabs....
+
+  .state('recipes-detail', {
+   url: '/receptbanken/:recipeId',
+   controller: 'recipeDeatilCtrl',
+   templateUrl: 'templates/recipes-detail.html'
 })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
 });
+
+

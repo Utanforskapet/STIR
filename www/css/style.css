@@ -76,10 +76,15 @@
 
 .textStyle {
         font-family: 'Muli', sans-serif;
-        font-size: 16px;
         margin: auto;
 }
 
 .circle_image {
      border-radius: 50%;
+}
+
+.center {
+        margin: auto;
+        position: absolute;
+
 }
