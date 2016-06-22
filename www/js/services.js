@@ -88,7 +88,11 @@ angular.module('starter.services', [])
     id: 1,
     name: 'Blåbärspaj',
     img: 'img/photo8.jpeg',
-    recipe: '\n1 dl blåbär\n1 dl socker (drygt) \n2 msk vetemjöl \n100 g smör \n1/2 dl socker \n2 dl vetemjöl'
+    recipe: '\n1 dl blåbär\n1 dl socker (drygt) \n2 msk vetemjöl \n100 g smör \n1/2 dl socker \n2 dl vetemjöl',
+    tutorial: '1. Värm ugnen till 200°C.\n2. Skölj och rensa bären. Blanda dem med socker och mjöl.\
+  \n3. Smält smöret till smuldegen. \nRör ner socker och mjöl. Rör tills det blivit en deg. \nLåt svalna något.\
+  \n4. Bottna en pajform med blåbären. \nSmula över degen. Grädda pajen \n15-20 minuter i ugnen.\
+  \nTill servering: Servera med marsansås, vispad grädde eller glass.'
     }, {
     id: 2,
     name: 'Spagetti och köttfärssås',

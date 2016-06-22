@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services', 'firebase'])
+angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-rangeSlider'])
 
 .controller('loginCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
 
@@ -7,7 +7,7 @@ angular.module('starter.controllers', ['starter.services', 'firebase'])
     StatusBar.hide();
   });*/
 
-   $scope.login = function() {
+    $scope.login = function() {
     var ref = new Firebase('https://STIR.firebaseio.com');
 
     var authObject = $firebaseAuth(ref);
@@ -197,19 +197,117 @@ function getImg(authData) {
   var deploy = new Ionic.Deploy();
   
 })
-
+ 
 .controller('recipesCtrl', function($scope, $location) {
+   //Change view to recipes
     $scope.changeView = function(recipes){
         $location.path('receptbanken'); // path not hash
     }
 }) 
 
+.controller('CreateAdCtrl', function($scope, $location) {
+      /* GET DATA FROM INPUT */
+      $scope.master = {};
+
+      $scope.update = function(ad) {
+      $scope.master = angular.copy(ad);
+      console.log(ad);
+      /* GET DATA FROM INPUT */
+
+    /* SAVE DATA TO DATABASE */
+   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  
+      var usersRef = ref.child("ad");
+      usersRef.set({
+          ad: ad
+      });
+ };
+      /* SAVE DATA TO DATABASE */
+
+
+    /* SAVE RECIPE TO DATABASE 
+    recipes = $scope.recipes;
+    console.log(recipes);
+    var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  
+      var usersRef = ref.child("recipe");
+      usersRef.set({
+          id: recipes.id,
+          name: recipes.name,
+          img: recipes.img
+     }); 
+   / SAVE RECIPE TO DATABASE */
+
+
+    //Change view to preview
+    $scope.changeView = function(preview){
+    $location.path('forhandsgranska'); // path not hash
+    }
+}) 
+
+.controller('previewCtrl', function($scope, $firebaseAuth) {
+
+      /* GET DATA FROM DATABASE */
+     var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+
+     var authObject = $firebaseAuth(ref);
+
+       ref.orderByKey().on("value", function(snapshot) {
+       snapshot.forEach(function(data) {
+  
+        if(data.key() == 'ad') {
+         ad = data.val();
+         console.log(ad);
+         }
+        
+        //NÅGOT GÅR SNETT HÄR
+        if(data.key() == 'recipe') {
+         var recipe = data.val();
+         console.log(recipe);
+        }
+
+        $scope.obj ={
+         ad: ad.ad,
+         recipe: recipe
+        }
+        console.log($scope.obj.ad.age);
+    
+       }); 
+
+      //  console.log($scope.user.img);
+        return $scope.obj;
+
+ });  
+    /* GET DATA FROM DATABASE */
+})
+
 .controller('receptbankCtrl', function($scope, Recipe) {
     $scope.recipes = Recipe.all();
     
-})
+}) 
 
-.controller('recipeDeatilCtrl', function($scope, $stateParams, Recipe) {
+.controller('recipeDeatilCtrl', function($scope, $stateParams, Recipe, $location) {
   $scope.recipes = Recipe.get($stateParams.recipeId);
+
+ // console.log($scope.recipes.id);
+
+   /* SAVE RECIPE TO DATABASE */
+    recipes = $scope.recipes;
+    console.log(recipes);
+    var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  
+      var usersRef = ref.child("recipe");
+      usersRef.set({
+          id: recipes.id,
+          name: recipes.name,
+          img: recipes.img
+      }); 
+   /* SAVE RECIPE TO DATABASE */
+
+   //Change view to ad
+   $scope.changeView = function(CreateAd){
+   $location.path('annons'); // path not hash
+    }
 });
+
 

@@ -84,7 +84,12 @@
 }
 
 .center {
-        margin: auto;
-        position: absolute;
-
+    display: block;
+    margin: auto;
+    width: 50%;
 }
+
+.text_center {
+    text-align: center;
+}
+
