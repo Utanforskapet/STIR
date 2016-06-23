@@ -1,17 +1,24 @@
 <ion-view view-title="{{obj.ad.place}}">
   <ion-content class="padding">
-   
-  <!--       <img  ng-src="{{recipes.img}}" style="width: 200px; height: 150px">
-       <p class="textStyle" style="font-size:22px" > {{recipes.name}} </p> -->
-    <!-- <div ng-controller="previewCtrl">   </div> -->
-        <p class="textStyle" style="font-size:22px" > Middag för {{obj.ad.guests}} </p>
-        <p class="textStyle" style="font-size:22px" > På {{obj.ad.place}} </p>
-        <p class="textStyle" style="font-size:22px" > Åldergräns {{obj.ad.age}} </p>
-        <p class="textStyle" style="font-size:22px" > Tema {{obj.ad.theme}} </p>
-
-        <p class="textStyle" style="font-size:22px" > Mat {{obj.recipe.name}} </p>
+    <div class="center text-center">
         <img  ng-src="{{obj.recipe.img}}" style="width: 200px; height: 150px">
-
+        <p class="textStyle" style="font-size:26px; color: #FF0059;" >{{obj.recipe.name}} </p> 
+    <hr>
+    <div class="row">
+        <div class="col">  <i class="icon ion-person-add"></i><p class="textStyle" style="font-size:12px" > Middag för {{obj.ad.guests}} </p></div>
+        <div class="col">  <i class="icon ion-home"></i><p class="textStyle" style="font-size:12px" > På {{obj.ad.place}} </p></div>
+        <div class="col">  <i class="icon ion-person"></i><p class="textStyle" style="font-size:12px" > Åldergräns {{obj.ad.age}} </p></div>
+        <div class="col">  <i class="icon ion-edit"></i><p class="textStyle" style="font-size:12px" > Tema {{obj.ad.theme}} </p></div>
+    </div>
+    <hr>
+         <p class="textStyle" style="font-size:18px;" >Värd för denna middag är: </p> 
+          <img class="circle_image text-center" ng-src="{{obj.user.img}}">
+           <p class="textStyle" style="font-size:14px; color:" >{{obj.user.name}} </p> 
+</div>
+      
  </ion-content>
+          <ion-footer-bar align-title="left" class="bar-dark" >
+          <button class="button button-clear text_center" ng-click="changeView2()">Slutför</button>
+          </ion-footer-bar>
 </ion-view>
  

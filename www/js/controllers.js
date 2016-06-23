@@ -15,7 +15,7 @@ angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-range
     authObject.$authWithOAuthPopup('facebook').then(function(authData) {
       //  console.log(authData);
         $rootScope.authData = authData;
-        console.log($rootScope.authData);
+       // console.log($rootScope.authData);
 
 /*SAVE DATA TO DATABASE */
 
@@ -97,6 +97,7 @@ function getImg(authData) {
 
   var authObject = $firebaseAuth(ref);
 
+  
  ref.orderByKey().on("value", function(snapshot) {
        snapshot.forEach(function(data) {
          
@@ -124,24 +125,6 @@ function getImg(authData) {
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope, $firebaseAuth) {
 
-  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
-
-  var authObject = $firebaseAuth(ref);
-  //  $scope.Location = sync.$asArray();
-   
-  // console.log($rootScope.authData);
-
-// Attach an asynchronous callback to read the data at our posts reference
-/*ref.on("value", function(snapshot) {
-  console.log(snapshot.val());
-  var value = snapshot.val();
-  console.log("Name: " + value.name);
-}, function (errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
-*/
-
-
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
  
@@ -165,24 +148,34 @@ function getImg(authData) {
   /* profileImage = $rootScope.authData.facebook.profileImageURL = {
     'border-radius': '50px'
   }*/
+
+  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  var authObject = $firebaseAuth(ref);
+
+
   ref.orderByKey().on("value", function(snapshot) {
   snapshot.forEach(function(data) {
-       console.log( data.key() +  data.val());
+    //   console.log( data.key() +  data.val());
 
        if(data.key() == 'img') {
 
           image = data.val();
-          console.log(image);
+        //  console.log(image);
 
     //Wait until the map is loaded
-     google.maps.event.addListenerOnce($scope.map, 'idle', function(){ 
+      google.maps.event.addListenerOnce($scope.map, 'idle', function(){
       var marker = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
       position: latLng,
-      icon: image
-  });      
-});
+      icon: image,
+      click: click()
+      });      
+  });
+
+      click = function() {
+          console.log("HEJ DÄR");
+      }
 
   }
     });
@@ -191,8 +184,8 @@ function getImg(authData) {
   }, function(error){
     console.log("Could not get location");
   });
-/*KARTA */
-
+    
+    /*KARTA */
 
   var deploy = new Ionic.Deploy();
   
@@ -224,28 +217,13 @@ function getImg(authData) {
  };
       /* SAVE DATA TO DATABASE */
 
-
-    /* SAVE RECIPE TO DATABASE 
-    recipes = $scope.recipes;
-    console.log(recipes);
-    var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
-  
-      var usersRef = ref.child("recipe");
-      usersRef.set({
-          id: recipes.id,
-          name: recipes.name,
-          img: recipes.img
-     }); 
-   / SAVE RECIPE TO DATABASE */
-
-
     //Change view to preview
     $scope.changeView = function(preview){
     $location.path('forhandsgranska'); // path not hash
     }
 }) 
 
-.controller('previewCtrl', function($scope, $firebaseAuth) {
+.controller('previewCtrl', function($scope, $firebaseAuth, $state) {
 
       /* GET DATA FROM DATABASE */
      var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
@@ -254,31 +232,53 @@ function getImg(authData) {
 
        ref.orderByKey().on("value", function(snapshot) {
        snapshot.forEach(function(data) {
-  
+
         if(data.key() == 'ad') {
          ad = data.val();
-         console.log(ad);
+        // console.log(ad);
          }
         
-        //NÅGOT GÅR SNETT HÄR
         if(data.key() == 'recipe') {
          var recipe = data.val();
-         console.log(recipe);
+        // console.log(recipe);
         }
+
+        if(data.key() == 'name') {
+         name = data.val();
+       //  console.log(name);
+         } 
+
+        if(data.key() == 'img') {
+         var img = data.val();
+      //   console.log(img);
+
+         $scope.user ={
+           img: img,
+           name: name
+         }
+         }
+        
+      //  console.log($scope.user);
 
         $scope.obj ={
          ad: ad.ad,
-         recipe: recipe
-        }
-        console.log($scope.obj.ad.age);
-    
+         recipe: recipe,
+         user: $scope.user
+        }        
        }); 
 
-      //  console.log($scope.user.img);
+     //   console.log($scope.obj.user.name);
+        //console.log($scope.user.img);
         return $scope.obj;
-
  });  
+
     /* GET DATA FROM DATABASE */
+  
+    //Change view to location
+     $scope.changeView2 = function(){
+         $state.go('tab.location');
+    }
+
 })
 
 .controller('receptbankCtrl', function($scope, Recipe) {
@@ -293,7 +293,7 @@ function getImg(authData) {
 
    /* SAVE RECIPE TO DATABASE */
     recipes = $scope.recipes;
-    console.log(recipes);
+   // console.log(recipes);
     var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
   
       var usersRef = ref.child("recipe");
