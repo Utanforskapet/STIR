@@ -1,23 +1,90 @@
-angular.module('starter.controllers', ['starter.services', 'firebase'])
+angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-rangeSlider'])
 
-.controller('loginCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
+.controller('loginCtrl', function($scope, $state, Auth) {
+     $scope.login = function(authMethod) {
+    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
+    }).catch(function(error) {
+      if (error.code === 'TRANSPORT_UNAVAILABLE') {
+        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+        });
+      } else {
+        console.log(error);
+      }
+    });
+  };
 
- /*ionic.Platform.ready(function() {
-    // hide the status bar using the StatusBar plugin
-    StatusBar.hide();
-  });*/
+    Auth.$onAuth(function(authData) {
+    if (authData === null) {
+      console.log('Not logged in yet');
+    } else {
+      console.log('Logged in as', authData.uid);
+      //Go to location when logged in
+       $state.go('tab.location');
+    }
+    // This will display the user's name in our view
+    $scope.authData = authData;
+  });
 
-   $scope.login = function() {
+/*  SAVE DATA TO DATABASE */
+
+// we would probably save a profile when we register new users on our site
+// we could also read the profile to see if it's null
+// here we will just simulate this with an isNewUser boolean
+
+var isNewUser = true;
+
+var myRef = new Firebase("https://STIR.firebaseio.com");
+
+Auth.$onAuth(function(authData) {
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+      myRef.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData),
+      img: getImg(authData)
+    });
+  }
+});
+
+function getName(authData) {
+  return authData.facebook.displayName;
+}
+function getImg(authData) {
+  return authData.facebook.profileImageURL;
+}
+})
+/*
+ 
+
+var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
+  if (error) { console.log("error"); }
+  else if (user) {
+    if( isNewUser ) {
+      // save new user's profile into Firebase so we can
+      // list users, use them in security rules, and show profiles
+      myRef.child('users').child(user.uid).set({
+        displayName: user.displayName,
+        provider: user.provider,
+        provider_id: user.id
+      });
+    }
+  }
+  else { console.log("Error!") }
+}
+
+/*
+    $scope.login = function() {
     var ref = new Firebase('https://STIR.firebaseio.com');
 
     var authObject = $firebaseAuth(ref);
 
     authObject.$authWithOAuthPopup('facebook').then(function(authData) {
       //  console.log(authData);
-        $rootScope.authData = authData;
-        console.log($rootScope.authData);
+      //  $rootScope.authData = authData;
+       // console.log($rootScope.authData);
 
-/*SAVE DATA TO DATABASE */
+/*SAVE DATA TO DATABASE 
 
 // we would probably save a profile when we register new users on our site
 // we could also read the profile to see if it's null
@@ -45,7 +112,7 @@ function getImg(authData) {
   return authData.facebook.profileImageURL;
 
 }
-/*SAVE DATA TO DATABASE */
+/*SAVE DATA TO DATABASE 
 
      //   $location.url('/tab.location');
 
@@ -53,7 +120,7 @@ function getImg(authData) {
        $state.go('tab.location');
 
       /* REDIRECTA TILL KARTAN 
-      Behövs dessa create och close funktioner???
+    //  Behövs dessa create och close funktioner???
       $scope.create = function() {
         console.log("hej hej");
             $state.go('tab.location');
@@ -61,14 +128,16 @@ function getImg(authData) {
       $scope.close = function() { 
        $state.go('tab.location'); 
       };
-        REDIRECTA TILL KARTAN */
+      /*  REDIRECTA TILL KARTAN 
 
     }).catch(function(error) {
           console.log('error' . error);
 
-    })
-}
-})
+    }) 
+} */
+//})
+
+
 
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
@@ -83,7 +152,7 @@ function getImg(authData) {
 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
-    Chats.remove(chat);
+  Chats.remove(chat);
   };
 })
 
@@ -91,12 +160,12 @@ function getImg(authData) {
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, $firebaseAuth) {
+.controller('AccountCtrl', function($scope, $firebaseAuth,  $ionicActionSheet, $state, $ionicLoading) {
 
   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
 
   var authObject = $firebaseAuth(ref);
-
+  
  ref.orderByKey().on("value", function(snapshot) {
        snapshot.forEach(function(data) {
          
@@ -117,30 +186,16 @@ function getImg(authData) {
 
       //  console.log($scope.user.img);
         return $scope.user;
-
  });  
+
+	$scope.showLogOutMenu = function() {
+	     ref.unauth();
+       $state.go('login');
+	};
  
 })
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope, $firebaseAuth) {
-
-  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
-
-  var authObject = $firebaseAuth(ref);
-  //  $scope.Location = sync.$asArray();
-   
-  // console.log($rootScope.authData);
-
-// Attach an asynchronous callback to read the data at our posts reference
-/*ref.on("value", function(snapshot) {
-  console.log(snapshot.val());
-  var value = snapshot.val();
-  console.log("Name: " + value.name);
-}, function (errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
-*/
-
 
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
@@ -165,40 +220,163 @@ function getImg(authData) {
   /* profileImage = $rootScope.authData.facebook.profileImageURL = {
     'border-radius': '50px'
   }*/
+
+  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  var authObject = $firebaseAuth(ref);
+
+
   ref.orderByKey().on("value", function(snapshot) {
   snapshot.forEach(function(data) {
-       console.log( data.key() +  data.val());
+    //   console.log( data.key() +  data.val());
 
        if(data.key() == 'img') {
-
-          image = data.val();
-          console.log(image);
-
+            var image = data.val();
+         }
+      
     //Wait until the map is loaded
-     google.maps.event.addListenerOnce($scope.map, 'idle', function(){ 
+   //   google.maps.event.addListenerOnce($scope.map, 'idle', function(){
       var marker = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
       position: latLng,
       icon: image
-  });      
-});
+      });      
+    //  });
 
-  }
+          window.google.maps.event.addListener(marker, 'click', function () {
+              console.log("hej");
+          });
+  
     });
   });
  
   }, function(error){
     console.log("Could not get location");
   });
-/*KARTA */
-
+    
+    /*KARTA */
 
   var deploy = new Ionic.Deploy();
   
 })
+ 
+.controller('recipesCtrl', function($scope, $location) {
+   //Change view to recipes
+    $scope.changeView = function(recipes){
+        $location.path('receptbanken'); // path not hash
+    }
+}) 
 
+.controller('CreateAdCtrl', function($scope, $location) {
+      /* GET DATA FROM INPUT */
+      $scope.master = {};
 
-.controller('recipesCtrl', function($scope) {
+      $scope.update = function(ad) {
+      $scope.master = angular.copy(ad);
+      console.log(ad);
+      /* GET DATA FROM INPUT */
 
+    /* SAVE DATA TO DATABASE */
+   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  
+      var usersRef = ref.child("ad");
+      usersRef.set({
+          ad: ad
+      });
+ };
+      /* SAVE DATA TO DATABASE */
+
+    //Change view to preview
+    $scope.changeView = function(preview){
+    $location.path('forhandsgranska'); // path not hash
+    }
+}) 
+
+.controller('previewCtrl', function($scope, $firebaseAuth, $state) {
+
+      /* GET DATA FROM DATABASE */
+     var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+
+     var authObject = $firebaseAuth(ref);
+
+       ref.orderByKey().on("value", function(snapshot) {
+       snapshot.forEach(function(data) {
+
+        if(data.key() == 'ad') {
+         ad = data.val();
+        // console.log(ad);
+         }
+        
+        if(data.key() == 'recipe') {
+         var recipe = data.val();
+        // console.log(recipe);
+        }
+
+        if(data.key() == 'name') {
+         name = data.val();
+       //  console.log(name);
+         } 
+
+        if(data.key() == 'img') {
+         var img = data.val();
+      //   console.log(img);
+
+         $scope.user ={
+           img: img,
+           name: name
+         }
+         }
+        
+      //  console.log($scope.user);
+
+        $scope.obj ={
+         ad: ad.ad,
+         recipe: recipe,
+         user: $scope.user
+        }        
+       }); 
+
+     //   console.log($scope.obj.user.name);
+        //console.log($scope.user.img);
+        return $scope.obj;
+ });  
+
+    /* GET DATA FROM DATABASE */
+  
+    //Change view to location
+     $scope.changeView2 = function(){
+         $state.go('tab.location');
+    }
+
+})
+
+.controller('receptbankCtrl', function($scope, Recipe) {
+    $scope.recipes = Recipe.all();
+    
+}) 
+
+.controller('recipeDeatilCtrl', function($scope, $stateParams, Recipe, $location) {
+  $scope.recipes = Recipe.get($stateParams.recipeId);
+
+ // console.log($scope.recipes.id);
+
+   /* SAVE RECIPE TO DATABASE */
+    recipes = $scope.recipes;
+   // console.log(recipes);
+    var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+  
+      var usersRef = ref.child("recipe");
+      usersRef.set({
+          id: recipes.id,
+          name: recipes.name,
+          img: recipes.img
+      }); 
+   /* SAVE RECIPE TO DATABASE */
+
+   //Change view to ad
+   $scope.changeView = function(CreateAd){
+   $location.path('annons'); // path not hash
+    }
 });
+
+

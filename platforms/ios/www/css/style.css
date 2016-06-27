@@ -12,10 +12,9 @@
 
 #main-wrap {
     /* overflow to handle inner floating block */
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+    justify-content: center;
+    align-items: center;
+ 
 }
 
 #left-column{
@@ -44,26 +43,83 @@
 
 .login-logo {
   z-index: 3;
-  display:block;
-  width: 100%;
-  height: 100%;
+  margin: auto;
   position: absolute;
-  top:50%;
-  left:15%;
+  right: 5%;
+  top: 15%;
+  height: 30%;
+  width: 90%;
+  
 }
 
 .login-fb {
-  z-index: 3;
-  display:block;
-  width: 80%;
-  height: 80%;
-  position: absolute;
-  top:35%;
-  left:25%;
+        margin: 0 auto;
+      
 }
 
 .pink-header {
     background-color: #FF0059;
     height: 200px;
+}
 
+.account-header {
+    background-color: #FFFFFF;
+    height: 300px;
+}
+
+.accountCenter {
+       margin: auto;
+       position: absolute;
+       left: 42%;
+       top: 35%;
+}
+
+.textStyle {
+        font-family: 'Muli', sans-serif;
+        margin: auto;
+}
+
+.circle_image {
+     border-radius: 50%;
+}
+
+.center {
+    display: block;
+    margin: auto;
+    width: 50%;
+}
+
+.text_center {
+    text-align: center;
+}
+
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  background: tomato;
+  padding: 0px;
+  width: 70px;
+  height: 50px;
+  margin-top: 10px;
+  z-index: -1;
+  
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
 }

@@ -3,25 +3,27 @@
     <ion-view title="Login"> 
     <ion-content>
     <nav-page hide-header-bar="true">
+      
 
     <div id="main-wrap">
       <div id="left-column" class="overlay">
-          <img id="image-login" src="../img/Photo6.jpeg" alt="" width="100%" height="25%">
-          <img id="image-login" src="../img/Photo8.jpeg" alt="" width="100%" height="25%">
-          <img id="image-login"  src="../img/Photo6.jpeg" alt="" width="100%" height="25%">
-          <img id="image-login"  src="../img/Photo3.jpeg" alt="" width="100%" height="25%">
+        <!--  <img id="image-login" src="/img/Photo4.png" alt="" width="100%" height="25%"> -->
+          <img ng-src="img/Photo6.jpeg" width="100%" height="25%">
+          <img ng-src="img/Photo8.jpeg" width="100%" height="25%">
+          <img ng-src="img/Photo6.jpeg" width="100%" height="25%">
+          <img ng-src="img/Photo3.jpeg" width="100%" height="25%">
       </div>
       <div id="right-column" class="overlay">
-          <img id="image-login"  src="../img/Photo5.jpeg" alt="" width="100%" height="25%">
-          <img id="image-login"  src="../img/Photo3.jpeg" alt="" width="100%" height="25%">
-          <img id="image-login"  src="../img/Photo8.jpeg" alt="" width="100%" height="25%">
-          <img id="image-login"  src="../img/Photo5.jpeg" alt="" width="100%" height="25%">
+         <img ng-src="img/Photo5.jpeg" width="100%" height="25%">
+         <img ng-src="img/Photo3.jpeg" width="100%" height="25%">
+         <img ng-src="img/Photo8.jpeg" width="100%" height="25%">
+         <img ng-src="img/Photo5.jpeg" width="100%" height="25%">
      </div> 
 
-          <img class="text-center login-logo" src="../img/logo.png"> 
-          <button class="button button-large icon-left ion-social-facebook button-positive login-fb" ng-click="login()">
-          Login with Facebook
-          </button>
+           <img class="text-center login-logo" ng-src="img/logo.png">
+             <button class="button button-large icon-left ion-social-facebook button-positive login-fb" ng-click="login('facebook')">
+               Logga in med Facebook
+            </button>
         </div>
       </div>
     </div>
@@ -31,10 +33,15 @@
         </button>
         <!--p class="text-center">
           <a href="#/forgot-password">Forgot password?</a>
-        </p-->
+        </p
         <p class="text-center">
           <a href="#/signup">Sign Up</a>
-        </p>
+        </p> -->
+
+      
+         
+
+
       </div>
     </ion-content>
   </ion-view>
@@ -42,5 +49,3 @@
     <div class="title">{{ error.message }}</div>
   </div>
 </form>
-
-

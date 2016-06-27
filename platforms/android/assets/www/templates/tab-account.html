@@ -1,13 +1,44 @@
 <ion-view view-title="Account">
   <ion-content>
     <div class="list card">
+      <div class="account-header" >
             <div class="item pink-header" >
                    <div ng-controller="AccountCtrl"> 
-                  <img ng-src="{{user.img}}">
-                   <h2>{{user.name}}</h2> 
-                   </div>
+                <div  class="accountCenter">
+                  <img class="circle_image text-center" ng-src="{{user.img}}">
+                </div>
+            </div>
+      </div>
+                <h2 class="textStyle text-center" style="font-size:16px" >{{user.name}}</h2> 
+                <h3 class="textStyle text-center" style="font-size:20px" >Se profil</h3>
+                <a class="button clear button-block" ng-click="showLogOutMenu()">Log Out</a>
             </div>
             <div class="item item-body">
+
+ <div class="list">
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-gear-b"></i>
+        App-inställningar
+  </a>
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-help"></i>
+    Behöver du hjälp?
+   
+  </a>
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-person-stalker"></i>
+    Bjud in vänner
+  </a>
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-edit"></i>
+    Ge oss feedback
+  </a>
+
+</div>
                 
             </div>
         </div>

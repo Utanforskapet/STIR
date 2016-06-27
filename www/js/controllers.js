@@ -1,12 +1,79 @@
 angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-rangeSlider'])
 
-.controller('loginCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
+.controller('loginCtrl', function($scope, $state, Auth) {
+     $scope.login = function(authMethod) {
+    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
+    }).catch(function(error) {
+      if (error.code === 'TRANSPORT_UNAVAILABLE') {
+        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+        });
+      } else {
+        console.log(error);
+      }
+    });
+  };
 
- /*ionic.Platform.ready(function() {
-    // hide the status bar using the StatusBar plugin
-    StatusBar.hide();
-  });*/
+    Auth.$onAuth(function(authData) {
+    if (authData === null) {
+      console.log('Not logged in yet');
+    } else {
+      console.log('Logged in as', authData.uid);
+      //Go to location when logged in
+       $state.go('tab.location');
+    }
+    // This will display the user's name in our view
+    $scope.authData = authData;
+  });
 
+/*  SAVE DATA TO DATABASE */
+
+// we would probably save a profile when we register new users on our site
+// we could also read the profile to see if it's null
+// here we will just simulate this with an isNewUser boolean
+
+var isNewUser = true;
+
+var myRef = new Firebase("https://STIR.firebaseio.com");
+
+Auth.$onAuth(function(authData) {
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+      myRef.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData),
+      img: getImg(authData)
+    });
+  }
+});
+
+function getName(authData) {
+  return authData.facebook.displayName;
+}
+function getImg(authData) {
+  return authData.facebook.profileImageURL;
+}
+})
+/*
+ 
+
+var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
+  if (error) { console.log("error"); }
+  else if (user) {
+    if( isNewUser ) {
+      // save new user's profile into Firebase so we can
+      // list users, use them in security rules, and show profiles
+      myRef.child('users').child(user.uid).set({
+        displayName: user.displayName,
+        provider: user.provider,
+        provider_id: user.id
+      });
+    }
+  }
+  else { console.log("Error!") }
+}
+
+/*
     $scope.login = function() {
     var ref = new Firebase('https://STIR.firebaseio.com');
 
@@ -14,10 +81,10 @@ angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-range
 
     authObject.$authWithOAuthPopup('facebook').then(function(authData) {
       //  console.log(authData);
-        $rootScope.authData = authData;
+      //  $rootScope.authData = authData;
        // console.log($rootScope.authData);
 
-/*SAVE DATA TO DATABASE */
+/*SAVE DATA TO DATABASE 
 
 // we would probably save a profile when we register new users on our site
 // we could also read the profile to see if it's null
@@ -45,7 +112,7 @@ function getImg(authData) {
   return authData.facebook.profileImageURL;
 
 }
-/*SAVE DATA TO DATABASE */
+/*SAVE DATA TO DATABASE 
 
      //   $location.url('/tab.location');
 
@@ -53,7 +120,7 @@ function getImg(authData) {
        $state.go('tab.location');
 
       /* REDIRECTA TILL KARTAN 
-      Behövs dessa create och close funktioner???
+    //  Behövs dessa create och close funktioner???
       $scope.create = function() {
         console.log("hej hej");
             $state.go('tab.location');
@@ -61,14 +128,16 @@ function getImg(authData) {
       $scope.close = function() { 
        $state.go('tab.location'); 
       };
-        REDIRECTA TILL KARTAN */
+      /*  REDIRECTA TILL KARTAN 
 
     }).catch(function(error) {
           console.log('error' . error);
 
-    })
-}
-})
+    }) 
+} */
+//})
+
+
 
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
@@ -91,12 +160,11 @@ function getImg(authData) {
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, $firebaseAuth) {
+.controller('AccountCtrl', function($scope, $firebaseAuth,  $ionicActionSheet, $state, $ionicLoading) {
 
   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
 
   var authObject = $firebaseAuth(ref);
-
   
  ref.orderByKey().on("value", function(snapshot) {
        snapshot.forEach(function(data) {
@@ -118,8 +186,12 @@ function getImg(authData) {
 
       //  console.log($scope.user.img);
         return $scope.user;
-
  });  
+
+	$scope.showLogOutMenu = function() {
+	     ref.unauth();
+       $state.go('login');
+	};
  
 })
 
@@ -158,26 +230,23 @@ function getImg(authData) {
     //   console.log( data.key() +  data.val());
 
        if(data.key() == 'img') {
-
-          image = data.val();
-        //  console.log(image);
-
+            var image = data.val();
+         }
+      
     //Wait until the map is loaded
-      google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+   //   google.maps.event.addListenerOnce($scope.map, 'idle', function(){
       var marker = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
       position: latLng,
-      icon: image,
-      click: click()
+      icon: image
       });      
-  });
+    //  });
 
-      click = function() {
-          console.log("HEJ DÄR");
-      }
-
-  }
+          window.google.maps.event.addListener(marker, 'click', function () {
+              console.log("hej");
+          });
+  
     });
   });
  
