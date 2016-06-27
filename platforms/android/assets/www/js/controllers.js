@@ -1,7 +1,8 @@
 angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-rangeSlider'])
 
-.controller('loginCtrl', function($scope, $state, Auth) {
-     $scope.login = function(authMethod) {
+.controller('loginCtrl', function($scope, $state, Auth, $firebaseAuth) {
+     /*
+    $scope.login = function(authMethod) {
     Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
     }).catch(function(error) {
       if (error.code === 'TRANSPORT_UNAVAILABLE') {
@@ -25,7 +26,7 @@ angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-range
     $scope.authData = authData;
   });
 
-/*  SAVE DATA TO DATABASE */
+/*  SAVE DATA TO DATABASE 
 
 // we would probably save a profile when we register new users on our site
 // we could also read the profile to see if it's null
@@ -54,41 +55,59 @@ function getImg(authData) {
   return authData.facebook.profileImageURL;
 }
 })
-/*
+
  
 
-var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
-  if (error) { console.log("error"); }
-  else if (user) {
-    if( isNewUser ) {
-      // save new user's profile into Firebase so we can
-      // list users, use them in security rules, and show profiles
-      myRef.child('users').child(user.uid).set({
-        displayName: user.displayName,
-        provider: user.provider,
-        provider_id: user.id
-      });
-    }
-  }
-  else { console.log("Error!") }
-}
+    $scope.login = function(authMethod) {
 
-/*
-    $scope.login = function() {
     var ref = new Firebase('https://STIR.firebaseio.com');
+ 
+     var authObject = $firebaseAuth(ref);
 
-    var authObject = $firebaseAuth(ref);
+    authObject.$authWithOAuthRedirect(authMethod).then(function(authData) {
+    }).catch(function(error) {
+      if (error.code === 'TRANSPORT_UNAVAILABLE') {
+        authObject.$authWithOAuthPopup(authMethod).then(function(authData) {
+        });
+      } else {
+        console.log(error);
+      }
+    });
+  };
+*/
 
-    authObject.$authWithOAuthPopup('facebook').then(function(authData) {
+    $scope.login = function() {
+ 
+     var ref = new Firebase('https://STIR.firebaseio.com');
+ 
+     var authObject = $firebaseAuth(ref);
+ 
+     authObject.$authWithOAuthPopup('facebook').then(function(authData) {
+         console.log(authData);
+
+       //Go to location when logged in
+       $state.go('tab.location');
+ 
+     }).catch(function(error) {
+           console.log('error' . error);
+ 
+     })
+ } 
+ 
       //  console.log(authData);
       //  $rootScope.authData = authData;
        // console.log($rootScope.authData);
 
-/*SAVE DATA TO DATABASE 
+/*SAVE DATA TO DATABASE */
 
 // we would probably save a profile when we register new users on our site
 // we could also read the profile to see if it's null
 // here we will just simulate this with an isNewUser boolean
+
+var ref = new Firebase('https://STIR.firebaseio.com');
+ 
+var authObject = $firebaseAuth(ref);
+
 var isNewUser = true;
 
 ref.onAuth(function(authData) {
@@ -135,7 +154,7 @@ function getImg(authData) {
 
     }) 
 } */
-//})
+})
 
 
 

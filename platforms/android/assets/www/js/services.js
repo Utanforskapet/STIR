@@ -75,7 +75,7 @@ angular.module('starter.services', [])
   }, {
     id: 3,
      name: 'Potatismos och köttbullar',
-    img: 'img/photo2.jpg'
+    img: 'img/photo6.jpeg'
  
   }];
   //  return recipes.recipe.replace(/\n/g, '<br />');

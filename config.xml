@@ -71,5 +71,19 @@
     <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
     <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
+    
+    
+    
+    <access origin="*"/>
+    <access origin="tel:*" launch-external="yes"/>
+    <allow-navigation href="*"/>
+    <allow-navigation href="http://*/*"/>
+    <allow-navigation href="https://*/*"/>
+    <allow-navigation href="data:*"/>
+    <allow-intent href="*"/>
+    <access origin="*"/>
+    
+    
+    
   </platform>
 </widget>
