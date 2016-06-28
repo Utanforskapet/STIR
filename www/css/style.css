@@ -1,6 +1,5 @@
 /* Empty. Add your own CSS if you like */
 
-
 .scroll {
     height: 100%;
 }
@@ -14,9 +13,8 @@
     /* overflow to handle inner floating block */
     justify-content: center;
     align-items: center;
- 
 }
-
+/*
 #left-column{
     float: left;
     width: 50%;
@@ -29,32 +27,11 @@
     width: 50%;
     line-height: 0;
 }   
-
-#image-login {  
-    padding: 0px;
-    margin: 0px;
-    z-index: -5;
-}
+*/
 
 .overlay {
   background:rgba(0,0,0,0.6);
   z-index: 999;
-}
-
-.login-logo {
-  z-index: 3;
-  margin: auto;
-  position: absolute;
-  right: 5%;
-  top: 15%;
-  height: 30%;
-  width: 90%;
-  
-}
-
-.login-fb {
-        margin: 0 auto;
-      
 }
 
 .pink-header {
@@ -68,8 +45,9 @@
 }
 
 .accountCenter {
+       display:block;
        margin: auto;
-       position: absolute;
+       margin-top:65px;
       
 }
 
@@ -84,41 +62,25 @@
 
 .center {
     display: block;
-    margin: auto;
-    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 33%;
 }
 
 .text_center {
     text-align: center;
 }
 
-
-.flex-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+.centerRecipe {
+    display: block;
+    margin: auto;
+    text-align: center;
 }
 
-.flex-item {
-  background: tomato;
-  padding: 0px;
-  width: 70px;
-  height: 50px;
-  margin-top: 10px;
-  z-index: -1;
-  
-  line-height: 150px;
-  color: white;
-  font-weight: bold;
-  font-size: 3em;
-  text-align: center;
+#background {
+      background-image: url("../img/photo6.jpeg"), url("../img/photo8.jpeg"), url("../img/photo6.jpeg"), url("../img/photo3.jpeg"), 
+                        url("../img/photo5.jpeg"), url("../img/photo3.jpeg"), url("../img/photo8.jpeg"), url("../img/photo5.jpeg");
+      background-position: 0% 0%, 0% 33.333%, 0% 66.666%, 0% 100%, 100% 0%, 100% 33.333%, 100% 66.666%, 100% 100%;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 50% 25%;
 }
