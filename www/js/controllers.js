@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-rangeSlider'])
+angular.module('starter.controllers', ['starter.services', 'firebase'])
 
 .controller('loginCtrl', function($scope, $state, Auth, $firebaseAuth) {
      /*
@@ -26,37 +26,7 @@ angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-range
     $scope.authData = authData;
   });
 
-/*  SAVE DATA TO DATABASE 
-
-// we would probably save a profile when we register new users on our site
-// we could also read the profile to see if it's null
-// here we will just simulate this with an isNewUser boolean
-
-var isNewUser = true;
-
-var myRef = new Firebase("https://STIR.firebaseio.com");
-
-Auth.$onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
-      myRef.child("users").child(authData.uid).set({
-      provider: authData.provider,
-      name: getName(authData),
-      img: getImg(authData)
-    });
-  }
-});
-
-function getName(authData) {
-  return authData.facebook.displayName;
-}
-function getImg(authData) {
-  return authData.facebook.profileImageURL;
-}
-})
-
- 
+/*  SAVE DATA TO DATABASE */
 
     $scope.login = function(authMethod) {
 
@@ -68,14 +38,19 @@ function getImg(authData) {
     }).catch(function(error) {
       if (error.code === 'TRANSPORT_UNAVAILABLE') {
         authObject.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
+           console.log(authData);
+
+          //Go to location when logged in
+          $state.go('tab.location');
+        
+      });
       } else {
         console.log(error);
       }
     });
   };
-*/
 
+/*
     $scope.login = function() {
  
      var ref = new Firebase('https://STIR.firebaseio.com');
@@ -93,16 +68,8 @@ function getImg(authData) {
  
      })
  } 
- 
-      //  console.log(authData);
-      //  $rootScope.authData = authData;
-       // console.log($rootScope.authData);
-
+*/
 /*SAVE DATA TO DATABASE */
-
-// we would probably save a profile when we register new users on our site
-// we could also read the profile to see if it's null
-// here we will just simulate this with an isNewUser boolean
 
 var ref = new Firebase('https://STIR.firebaseio.com');
  
@@ -124,39 +91,14 @@ ref.onAuth(function(authData) {
 
 function getName(authData) {
   return authData.facebook.displayName;
-
 }
 
 function getImg(authData) {
   return authData.facebook.profileImageURL;
-
 }
-/*SAVE DATA TO DATABASE 
+/*SAVE DATA TO DATABASE */
 
-     //   $location.url('/tab.location');
-
-      //Go to location when logged in
-       $state.go('tab.location');
-
-      /* REDIRECTA TILL KARTAN 
-    //  Behövs dessa create och close funktioner???
-      $scope.create = function() {
-        console.log("hej hej");
-            $state.go('tab.location');
-      };
-      $scope.close = function() { 
-       $state.go('tab.location'); 
-      };
-      /*  REDIRECTA TILL KARTAN 
-
-    }).catch(function(error) {
-          console.log('error' . error);
-
-    }) 
-} */
 })
-
-
 
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
@@ -179,7 +121,14 @@ function getImg(authData) {
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, $firebaseAuth,  $ionicActionSheet, $state, $ionicLoading) {
+.controller('AccountCtrl', function($scope, $firebaseAuth,  $ionicActionSheet, $state, $ionicLoading, $firebaseObject) {
+
+ // var ref = 'https://STIR.firebaseio.com';
+ // var usersRef = ref.child('users');
+ // this.get = function get(name) {
+ // $firebaseObject(usersRef.child(name));
+ // }
+  
 
   var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
 
@@ -211,10 +160,11 @@ function getImg(authData) {
 	     ref.unauth();
        $state.go('login');
 	};
+  
  
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope, $firebaseAuth) {
+.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth) {
 
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
@@ -222,6 +172,7 @@ function getImg(authData) {
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
  
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var myLatLng = new google.maps.LatLng(58.58930,	16.19930);
  
     var mapOptions = {
       center: latLng,
@@ -236,22 +187,13 @@ function getImg(authData) {
     
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-  /* profileImage = $rootScope.authData.facebook.profileImageURL = {
-    'border-radius': '50px'
-  }*/
+//ChildEventListener istället???
+var ref = new Firebase("https://stir.firebaseio.com");
+var authData = ref.getAuth();
+image = authData.facebook.profileImageURL;
 
-  var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
-  var authObject = $firebaseAuth(ref);
+if (authData) {
 
-
-  ref.orderByKey().on("value", function(snapshot) {
-  snapshot.forEach(function(data) {
-    //   console.log( data.key() +  data.val());
-
-       if(data.key() == 'img') {
-            var image = data.val();
-         }
-      
     //Wait until the map is loaded
    //   google.maps.event.addListenerOnce($scope.map, 'idle', function(){
       var marker = new google.maps.Marker({
@@ -260,19 +202,26 @@ function getImg(authData) {
       position: latLng,
       icon: image
       });      
-    //  });
 
-          window.google.maps.event.addListener(marker, 'click', function () {
-              console.log("hej");
-          });
-  
-    });
-  });
+       window.google.maps.event.addListener(marker, 'click', function () {
+               $state.go('preview');
+       });
+
+      var marker1 = new google.maps.Marker({
+      map: $scope.map,
+      animation: google.maps.Animation.DROP,
+      position: myLatLng,
+      icon: authData.facebook.profileImageURL
+      });      
+
+
+ } else {
+  console.log("User is logged out");
+}
  
   }, function(error){
     console.log("Could not get location");
-  });
-    
+  });    
     /*KARTA */
 
   var deploy = new Ionic.Deploy();

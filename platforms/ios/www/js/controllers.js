@@ -26,37 +26,7 @@ angular.module('starter.controllers', ['starter.services', 'firebase', 'ui-range
     $scope.authData = authData;
   });
 
-/*  SAVE DATA TO DATABASE 
-
-// we would probably save a profile when we register new users on our site
-// we could also read the profile to see if it's null
-// here we will just simulate this with an isNewUser boolean
-
-var isNewUser = true;
-
-var myRef = new Firebase("https://STIR.firebaseio.com");
-
-Auth.$onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
-      myRef.child("users").child(authData.uid).set({
-      provider: authData.provider,
-      name: getName(authData),
-      img: getImg(authData)
-    });
-  }
-});
-
-function getName(authData) {
-  return authData.facebook.displayName;
-}
-function getImg(authData) {
-  return authData.facebook.profileImageURL;
-}
-})
-
- 
+/*  SAVE DATA TO DATABASE */
 
     $scope.login = function(authMethod) {
 
@@ -68,14 +38,19 @@ function getImg(authData) {
     }).catch(function(error) {
       if (error.code === 'TRANSPORT_UNAVAILABLE') {
         authObject.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
+           console.log(authData);
+
+          //Go to location when logged in
+          $state.go('tab.location');
+        
+      });
       } else {
         console.log(error);
       }
     });
   };
-*/
 
+/*
     $scope.login = function() {
  
      var ref = new Firebase('https://STIR.firebaseio.com');
@@ -93,16 +68,8 @@ function getImg(authData) {
  
      })
  } 
- 
-      //  console.log(authData);
-      //  $rootScope.authData = authData;
-       // console.log($rootScope.authData);
-
+*/
 /*SAVE DATA TO DATABASE */
-
-// we would probably save a profile when we register new users on our site
-// we could also read the profile to see if it's null
-// here we will just simulate this with an isNewUser boolean
 
 var ref = new Firebase('https://STIR.firebaseio.com');
  
@@ -131,29 +98,8 @@ function getImg(authData) {
   return authData.facebook.profileImageURL;
 
 }
-/*SAVE DATA TO DATABASE 
+/*SAVE DATA TO DATABASE */
 
-     //   $location.url('/tab.location');
-
-      //Go to location when logged in
-       $state.go('tab.location');
-
-      /* REDIRECTA TILL KARTAN 
-    //  Behövs dessa create och close funktioner???
-      $scope.create = function() {
-        console.log("hej hej");
-            $state.go('tab.location');
-      };
-      $scope.close = function() { 
-       $state.go('tab.location'); 
-      };
-      /*  REDIRECTA TILL KARTAN 
-
-    }).catch(function(error) {
-          console.log('error' . error);
-
-    }) 
-} */
 })
 
 

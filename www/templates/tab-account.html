@@ -1,13 +1,20 @@
 <ion-view view-title="Account">
   <ion-content>
+
+  <!--   <ul>
+       <li ng-repeat="user in ctrl.users">
+         {{user.name}}
+       </li>
+    </ul>   -->
+
     <div class="list card">
       <div class="account-header" >
             <div class="item pink-header" >
                    <div ng-controller="AccountCtrl"> 
-                <div  class="accountCenter">
-                  <img class="circle_image text-center" ng-src="{{user.img}}">
+              <!--  <div  class="accountCenter"> -->
+                  <img class="circle_image accountCenter" ng-src="{{user.img}}">
                 </div>
-            </div>
+           <!-- </div> -->
       </div>
                 <h2 class="textStyle text-center" style="font-size:16px" >{{user.name}}</h2> 
                 <h3 class="textStyle text-center" style="font-size:20px" >Se profil</h3>

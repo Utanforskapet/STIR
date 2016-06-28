@@ -52,11 +52,6 @@
   
 }
 
-.login-fb {
-        margin: 0 auto;
-      
-}
-
 .pink-header {
     background-color: #FF0059;
     height: 200px;
@@ -68,14 +63,14 @@
 }
 
 .accountCenter {
-       margin: auto;
-       position: absolute;
-      
+    display: block;
+    margin: auto;
+    margin-top: 65px;   
 }
 
 .textStyle {
         font-family: 'Muli', sans-serif;
-        margin: auto;
+       
 }
 
 .circle_image {
@@ -84,41 +79,32 @@
 
 .center {
     display: block;
-    margin: auto;
-    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 33%;
 }
 
 .text_center {
     text-align: center;
 }
 
-
-.flex-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+#background {
+      background-image: url("../img/photo6.jpeg"), url("../img/photo8.jpeg"), url("../img/photo6.jpeg"), url("../img/photo3.jpeg"), 
+                        url("../img/photo5.jpeg"), url("../img/photo3.jpeg"), url("../img/photo8.jpeg"), url("../img/photo5.jpeg");
+      background-position: 0% 0%, 0% 33.333%, 0% 66.666%, 0% 100%, 100% 0%, 100% 33.333%, 100% 66.666%, 100% 100%;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 50% 25%;
 }
-
-.flex-item {
-  background: tomato;
-  padding: 0px;
-  width: 70px;
-  height: 50px;
-  margin-top: 10px;
-  z-index: -1;
-  
-  line-height: 150px;
-  color: white;
-  font-weight: bold;
-  font-size: 3em;
-  text-align: center;
-}
+ /*right center, right top, left center,  left bottom, right bottom;*/
+/*
+ <img ng-src="img/photo6.jpeg" width="100%" height="25%">
+          <img ng-src="img/photo8.jpeg" width="100%" height="25%">
+          <img ng-src="img/photo6.jpeg" width="100%" height="25%">
+          <img ng-src="img/photo3.jpeg" width="100%" height="25%">
+      </div>
+      <div id="right-column" class="overlay">
+         <img ng-src="img/photo5.jpeg" width="100%" height="25%">
+         <img ng-src="img/photo3.jpeg" width="100%" height="25%">
+         <img ng-src="img/photo8.jpeg" width="100%" height="25%">
+         <img ng-src="img/photo5.jpeg" width="100%" height="25%">
+*/
