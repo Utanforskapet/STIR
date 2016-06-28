@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services', 'firebase'])
 
-.controller('loginCtrl', function($scope, $state, Auth, $firebaseAuth) {
+.controller('loginCtrl', function($scope, $state, $firebaseAuth) {
      /*
     $scope.login = function(authMethod) {
     Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
@@ -26,54 +26,36 @@ angular.module('starter.controllers', ['starter.services', 'firebase'])
     $scope.authData = authData;
   });
 
-/*  SAVE DATA TO DATABASE */
-
-    $scope.login = function(authMethod) {
-
-    var ref = new Firebase('https://STIR.firebaseio.com');
- 
-     var authObject = $firebaseAuth(ref);
-
-    authObject.$authWithOAuthRedirect(authMethod).then(function(authData) {
-    }).catch(function(error) {
-      if (error.code === 'TRANSPORT_UNAVAILABLE') {
-        authObject.$authWithOAuthPopup(authMethod).then(function(authData) {
-           console.log(authData);
-
-          //Go to location when logged in
-          $state.go('tab.location');
-        
-      });
-      } else {
-        console.log(error);
-      }
-    });
-  };
-
-/*
-    $scope.login = function() {
- 
+*/
      var ref = new Firebase('https://STIR.firebaseio.com');
- 
      var authObject = $firebaseAuth(ref);
+
+     authObject.$onAuth(function(authData) {
+    if (authData === null) {
+      console.log('Not logged in yet');
+    } else {
+      console.log('Logged in as', authData.uid);
+      //Go to location when logged in
+       $state.go('tab.location');
+    }
+   }); 
+
+
+    $scope.login = function() {
  
      authObject.$authWithOAuthPopup('facebook').then(function(authData) {
          console.log(authData);
 
        //Go to location when logged in
-       $state.go('tab.location');
+      // $state.go('tab.location');
  
      }).catch(function(error) {
            console.log('error' . error);
- 
      })
- } 
-*/
-/*SAVE DATA TO DATABASE */
 
-var ref = new Firebase('https://STIR.firebaseio.com');
+ } 
  
-var authObject = $firebaseAuth(ref);
+/*SAVE DATA TO DATABASE */
 
 var isNewUser = true;
 
@@ -193,6 +175,19 @@ var authData = ref.getAuth();
 image = authData.facebook.profileImageURL;
 
 if (authData) {
+ 
+    var ref = new Firebase('https://STIR.firebaseio.com/users')
+
+     ref.on("child_added", function(snapshot, prevChildKey) {
+          var newPost = snapshot.val();
+          console.log(newPost.lon);
+          console.log(newPost.lat);
+     })
+
+
+  var authData = ref.getAuth();
+  image = authData.facebook.profileImageURL;
+
 
     //Wait until the map is loaded
    //   google.maps.event.addListenerOnce($scope.map, 'idle', function(){
@@ -207,6 +202,7 @@ if (authData) {
                $state.go('preview');
        });
 
+      
       var marker1 = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
@@ -216,8 +212,8 @@ if (authData) {
 
 
  } else {
-  console.log("User is logged out");
-}
+      console.log("User is logged out");
+    }
  
   }, function(error){
     console.log("Could not get location");
@@ -345,6 +341,83 @@ if (authData) {
    $scope.changeView = function(CreateAd){
    $location.path('annons'); // path not hash
     }
+})
+
+
+.controller('attendCtrl', function($scope, $firebaseAuth, $state) {
+     var ref = new Firebase('https://STIR.firebaseio.com/users')
+
+     ref.on("child_added", function(snapshot, prevChildKey) {
+          var newPost = snapshot.val();
+          console.log(newPost.name);
+     })
+
+     // Get the data on a post that has changed
+    ref.on("child_changed", function(snapshot) {
+        var changedPost = snapshot.val();
+        console.log("The updated post title is " + changedPost.recipe.name);
+    });
+
+    ref.on("child_removed", function(snapshot) {
+        var deletedPost = snapshot.val();
+        console.log("The blog post titled '" + deletedPost.name + "' has been deleted");
+    });
+
+     /*
+      var ref = new Firebase('https://STIR.firebaseio.com/users/facebook%3A10209542863159430');
+
+      var authObject = $firebaseAuth(ref);
+
+       ref.orderByKey().on("value", function(snapshot) {
+       snapshot.forEach(function(data) {
+
+        if(data.key() == 'ad') {
+         ad = data.val();
+        // console.log(ad);
+         }
+        
+        if(data.key() == 'recipe') {
+         var recipe = data.val();
+        // console.log(recipe);
+        }
+
+        if(data.key() == 'name') {
+         name = data.val();
+       //  console.log(name);
+         } 
+
+        if(data.key() == 'img') {
+         var img = data.val();
+      //   console.log(img);
+
+         $scope.user ={
+           img: img,
+           name: name
+         }
+         }
+        
+      //  console.log($scope.user);
+
+        $scope.obj ={
+         ad: ad.ad,
+         recipe: recipe,
+         user: $scope.user
+        }        
+       }); 
+
+     //   console.log($scope.obj.user.name);
+        //console.log($scope.user.img);
+        return $scope.obj;
+ });  
+
+    /* GET DATA FROM DATABASE */
+  
+    //Change view to location
+     $scope.changeView2 = function(){
+         $state.go('tab.location');
+    }
+
+    
 });
 
 

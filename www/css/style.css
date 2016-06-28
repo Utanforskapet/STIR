@@ -1,6 +1,5 @@
 /* Empty. Add your own CSS if you like */
 
-
 .scroll {
     height: 100%;
 }
@@ -14,22 +13,7 @@
     /* overflow to handle inner floating block */
     justify-content: center;
     align-items: center;
- 
 }
-/*
-#left-column{
-    float: left;
-    width: 50%;
-    line-height:0;
-    
-}
-
-#right-column {
-    float: right;
-    width: 50%;
-    line-height: 0;
-}   
-*/
 
 .overlay {
   background:rgba(0,0,0,0.6);
@@ -73,6 +57,7 @@
     margin: auto;
     text-align: center;
 }
+
 
 .text_center {
     text-align: center;

@@ -124,6 +124,12 @@ angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.co
    templateUrl: 'templates/preview.html'
 })
 
+  .state('attend', {
+   url: '/delta',
+   controller: 'attendCtrl',
+   templateUrl: 'templates/attend.html'
+})
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
