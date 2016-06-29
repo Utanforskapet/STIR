@@ -60,14 +60,6 @@ function getImg(authData) {
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
   Chats.remove(chat);
@@ -104,11 +96,9 @@ if (authData) {
 	     ref.unauth();
        $state.go('login');
 	};
-  
- 
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth) {
+.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth, $rootScope) {
 
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
@@ -139,9 +129,9 @@ if (authData) {
     var ref = new Firebase('https://STIR.firebaseio.com/users')
 
      ref.on("child_added", function(snapshot, prevChildKey) {
-          var newPost = snapshot.val();
+          var LocUser = snapshot.val();
 
-          var myLatLng = new google.maps.LatLng(newPost.lat,	newPost.lon);
+          var myLatLng = new google.maps.LatLng(LocUser.lat,	LocUser.lon);
       
           //Wait until the map is loaded
           //google.maps.event.addListenerOnce($scope.map, 'idle', function(){
@@ -149,12 +139,21 @@ if (authData) {
           map: $scope.map,
           animation: google.maps.Animation.DROP,
           position: myLatLng,
-          icon: newPost.img
+          icon: LocUser.img
           });      
 
           window.google.maps.event.addListener(marker, 'click', function () {
-                  $state.go('preview');
+                 $rootScope.LocUser = LocUser;
+                 console.log($rootScope.LocUser);
+                 $state.go('attend');
+                 //console.log(marker.icon);
+               //  $scope.LocUser = LocUser;
+               //  console.log($scope.LocUser);
           });
+        //$scope.LocUser = LocUser;
+        //console.log($scope.LocUser);
+        //return LocUser;
+         
      })
       
  } else {
@@ -167,7 +166,7 @@ if (authData) {
     /*KARTA */
 
   var deploy = new Ionic.Deploy();
-  
+
 })
  
 .controller('recipesCtrl', function($scope, $location) {
@@ -199,7 +198,7 @@ if (authData) {
       usersRef.set({
           ad: ad
       });
- };
+    };
       }
       else {
           console.log("User is logged out");
@@ -214,7 +213,7 @@ if (authData) {
 
 .controller('previewCtrl', function($scope, $firebaseAuth, $state) {
 
-   /* GET DATA FROM DATABASE */
+/* GET DATA FROM DATABASE */
 var ref = new Firebase("https://stir.firebaseio.com");
 var authData = ref.getAuth();
 
@@ -225,7 +224,6 @@ if (authData) {
 
      ref.orderByKey().on("value", function(snapshot) {
           var newPost = snapshot.val();
-          console.log(newPost.ad.ad.place);
           $scope.newPost = newPost;
           return $scope.newPost;
      });
@@ -266,7 +264,9 @@ if (authData) {
       usersRef.set({
           id: recipes.id,
           name: recipes.name,
-          img: recipes.img
+          img: recipes.img,
+          recipe: recipes.recipe,
+          tutorial: recipes.tutorial
       }); 
    /* SAVE RECIPE TO DATABASE */
 
@@ -277,35 +277,26 @@ if (authData) {
 } else {
       console.log("User is logged out");
    }
-
 })
 
-
-.controller('attendCtrl', function($scope, $firebaseAuth, $state) {
-     var ref = new Firebase('https://STIR.firebaseio.com/users')
-
-     ref.on("child_added", function(snapshot, prevChildKey) {
-          var newPost = snapshot.val();
-          console.log(newPost.name);
-     })
-
-     // Get the data on a post that has changed
-    ref.on("child_changed", function(snapshot) {
-        var changedPost = snapshot.val();
-        console.log("The updated post title is " + changedPost.recipe.name);
-    });
-
-    ref.on("child_removed", function(snapshot) {
-        var deletedPost = snapshot.val();
-        console.log("The blog post titled '" + deletedPost.name + "' has been deleted");
-    });
+.controller('attendCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
+    LocUser =  $rootScope.LocUser;
+    console.log(LocUser);
+   
+  /*  var ref = new Firebase('https://STIR.firebaseio.com/users')
+    ref.orderByKey().on("value", function(snapshot) {
+          var LocUser = snapshot.val();
+          console.log(LocUser.ad.ad.place);
+          $scope.LocUser = LocUser;
+          return $scope.LocUser;
+     });
 
     /* GET DATA FROM DATABASE */
   
     //Change view to location
-     $scope.changeView2 = function(){
+  /*   $scope.changeView2 = function(){
          $state.go('tab.location');
-    }
+    }*/
 
     
 });

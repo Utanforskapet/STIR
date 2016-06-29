@@ -14,7 +14,15 @@ angular.module('starter.services', [])
       return $firebaseObject(usersRef.child(name));
     }
 
-})*/
+})
+
+.service('LocUser', function() {
+  // $scope.LocUser = LocUser;
+      //console.log($scope.LocUser);
+    this.LocUser = "Hej";
+    return this.LocUser;
+
+}) */
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -72,7 +80,7 @@ angular.module('starter.services', [])
     id: 1,
     name: 'Blåbärspaj',
     img: 'img/photo8.jpeg',
-    recipe: '\n1 dl blåbär\n1 dl socker (drygt) \n2 msk vetemjöl \n100 g smör \n1/2 dl socker \n2 dl vetemjöl',
+    recipe: '1 dl blåbär\n1 dl socker (drygt) \n2 msk vetemjöl \n100 g smör \n1/2 dl socker \n2 dl vetemjöl',
     tutorial: '1. Värm ugnen till 200°C.\n2. Skölj och rensa bären. Blanda dem med socker \noch mjöl.\
   \n3. Smält smöret till smuldegen. \nRör ner socker och mjöl. Rör tills det blivit en deg. \nLåt svalna något.\
   \n4. Bottna en pajform med blåbären. \nSmula över degen. Grädda pajen \n15-20 minuter i ugnen.\

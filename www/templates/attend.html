@@ -1,23 +1,26 @@
-<ion-view view-title="Hej">
+<ion-view view-title="{{LocUser.ad.ad.place}}">
   <ion-content class="padding">
-  <!--  <div class="centerRecipe text-center">
-        <img  ng-src="{{obj.recipe.img}}" style="width: 200px; height: 150px">
-        <p class="textStyle" style="font-size:26px; color: #FF0059;" >{{obj.recipe.name}} </p> 
+   <div class="centerRecipe text-center">
+        <img  ng-src="{{LocUser.recipe.img}}" style="width: 200px; height: 150px">
+        <p class="textStyle" style="font-size:26px; color: #FF0059;" >{{LocUser.recipe.name}} </p> 
     <hr>
     <div class="row">
-        <div class="col">  <i class="icon ion-person-add"></i><p class="textStyle" style="font-size:12px" > Middag för {{obj.ad.guests}} </p></div>
-        <div class="col">  <i class="icon ion-home"></i><p class="textStyle" style="font-size:12px" > På {{obj.ad.place}} </p></div>
-        <div class="col">  <i class="icon ion-person"></i><p class="textStyle" style="font-size:12px" > Åldergräns {{obj.ad.age}} </p></div>
-        <div class="col">  <i class="icon ion-edit"></i><p class="textStyle" style="font-size:12px" > Tema {{obj.ad.theme}} </p></div>
+        <div class="col">  <i class="icon ion-person-add"></i><p class="textStyle" style="font-size:12px" > Middag för {{LocUser.ad.ad.guests}} </p></div>
+        <div class="col">  <i class="icon ion-home"></i><p class="textStyle" style="font-size:12px" > På {{LocUser.ad.ad.place}} </p></div>
+        <div class="col">  <i class="icon ion-person"></i><p class="textStyle" style="font-size:12px" > Åldergräns {{LocUser.ad.ad.age}} </p></div>
+        <div class="col">  <i class="icon ion-edit"></i><p class="textStyle" style="font-size:12px" > Tema {{LocUser.ad.ad.theme}} </p></div>
     </div>
     <hr>
          <p class="textStyle" style="font-size:18px;" >Värd för denna middag är: </p> 
-          <img class="circle_image text-center" ng-src="{{obj.user.img}}">
-           <p class="textStyle" style="font-size:14px; color:" >{{obj.user.name}} </p>
+          <img class="circle_image text-center" ng-src="{{LocUser.img}}">
+           <p class="textStyle" style="font-size:14px; color:" >{{LocUser.name}} </p>
            
-           <p class="textStyle" style="font-size:26px;" >{{obj.recipe.recipe}} </p> 
-</div>
-      -->
+           <br><br>
+            <p class="textStyle" style="font-size:18px;" >Ingredienser </p> 
+           <p class="textStyle" style="font-size:14px; white-space: pre;" >{{LocUser.recipe.recipe}} </p> 
+            <p class="textStyle" style="font-size:18px;" >Så här gör du: </p> 
+            <p class="textStyle" style="font-size:14px; white-space: pre;">{{LocUser.recipe.tutorial}} </p> 
+</div> 
  </ion-content>
           <ion-footer-bar align-title="left" class="bar-dark" >
           <button class="button button-clear text_center" ng-click="changeView2()">Delta på denna middag</button>
