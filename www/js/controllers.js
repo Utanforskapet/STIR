@@ -57,17 +57,26 @@ function getImg(authData) {
 
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
- 
+.controller('ChatsCtrl', function($scope, Chats, SharedUser, $rootScope) {
+
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
   Chats.remove(chat);
   };
-   
+
+   $scope.$on('handleBroadcast', function() {
+      $rootScope.LocUser = SharedUser.LocUser;
+      LocUser = $scope.LocUser;
+   });  
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, $firebaseArray, Chats) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, $firebaseArray, Chats, SharedUser, $rootScope) {
   $scope.chat = Chats.get($stateParams.chatId);
+
+   $scope.$on('handleBroadcast', function() {
+      $rootScope.LocUser = SharedUser.LocUser;
+      LocUser = $scope.LocUser;
+   });  
 
      var ref = new Firebase("https://stir.firebaseio.com/chat");
     $scope.chats = $firebaseArray(ref);
@@ -102,7 +111,7 @@ function getImg(authData) {
 })
 
 .controller('AccountCtrl', function($scope, $firebaseAuth,  $ionicActionSheet, $state, $ionicLoading, $firebaseObject) {
-
+                
  /* GET DATA FROM DATABASE */
 var ref = new Firebase("https://stir.firebaseio.com");
 var authData = ref.getAuth();
@@ -129,11 +138,11 @@ if (authData) {
 	};
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth, $rootScope) {
+.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth, $rootScope, SharedUser) {
 
 /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
- 
+
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
  
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -160,9 +169,9 @@ if (authData) {
     var ref = new Firebase('https://STIR.firebaseio.com/users')
 
      ref.on("child_added", function(snapshot, prevChildKey) {
-          var LocUser = snapshot.val();
+          var user = snapshot.val();
 
-          var myLatLng = new google.maps.LatLng(LocUser.lat,	LocUser.lon);
+          var myLatLng = new google.maps.LatLng(user.lat,	user.lon);
       
           //Wait until the map is loaded
           //google.maps.event.addListenerOnce($scope.map, 'idle', function(){
@@ -170,21 +179,23 @@ if (authData) {
           map: $scope.map,
           animation: google.maps.Animation.DROP,
           position: myLatLng,
-          icon: LocUser.img
+          icon: user.img
           });      
 
           window.google.maps.event.addListener(marker, 'click', function () {
-                 $rootScope.LocUser = LocUser;
-                 console.log($rootScope.LocUser);
+                // $rootScope.LocUser = LocUser;
+                // console.log($rootScope.LocUser);
+                //User = LocUser
+              //  $scope.handleClick = function(user) {
+                 SharedUser.prepForBroadcast(user);
+               //  };
+                 $scope.$on('handleBroadcast', function() {
+                 $scope.LocUser = SharedUser.LocUser;
+                 console.log($scope.LocUser);
+                 });
+
                  $state.go('attend');
-                 //console.log(marker.icon);
-               //  $scope.LocUser = LocUser;
-               //  console.log($scope.LocUser);
-          });
-        //$scope.LocUser = LocUser;
-        //console.log($scope.LocUser);
-        //return LocUser;
-         
+          }); 
      })
       
  } else {
@@ -310,26 +321,23 @@ if (authData) {
    }
 })
 
-.controller('attendCtrl', function($scope, $firebaseAuth, $state, $rootScope) {
-    LocUser =  $rootScope.LocUser;
-    console.log(LocUser);
-   
-  /*  var ref = new Firebase('https://STIR.firebaseio.com/users')
-    ref.orderByKey().on("value", function(snapshot) {
-          var LocUser = snapshot.val();
-          console.log(LocUser.ad.ad.place);
-          $scope.LocUser = LocUser;
-          return $scope.LocUser;
-     });
+.controller('attendCtrl', function($scope, $firebaseAuth, $state, $rootScope, SharedUser) {
+  //  LocUser =  $rootScope.LocUser;
+  //  console.log(LocUser);
+   $scope.$on('handleBroadcast', function() {
+      $rootScope.LocUser = SharedUser.LocUser;
+      LocUser = $scope.LocUser;
+      console.log(LocUser);
+   });
 
-    /* GET DATA FROM DATABASE */
+  
+    console.log($rootScope.LocUser);
   
     //Change view to location
      $scope.changeView = function(){
          $state.go('tab.chats');
     }
 
-    
 });
 
 

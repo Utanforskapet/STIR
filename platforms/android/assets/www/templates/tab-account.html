@@ -4,12 +4,13 @@
       <div class="account-header" >
             <div class="item pink-header" >
                    <div ng-controller="AccountCtrl"> 
-              <!--  <div  class="accountCenter"> -->
-                  <img class="circle_image accountCenter" ng-src="{{user.img}}">
+                  <img class="circle_image accountCenter" ng-src="{{newPost.img}}">
                 </div>
-           <!-- </div> -->
+                   <div ng-controller="AccountCtrl">      
+                  <img class="circle_image accountCenter" ng-src="{{newPost.img}}">
+            </div>
       </div>
-                <h2 class="textStyle text-center" style="font-size:16px" >{{user.name}}</h2> 
+                <h2 class="textStyle text-center" style="font-size:16px" >{{newPost.name}}</h2> 
                 <h3 class="textStyle text-center" style="font-size:20px" >Se profil</h3>
                 <a class="button clear button-block" ng-click="showLogOutMenu()">Log Out</a>
             </div>

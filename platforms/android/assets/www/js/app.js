@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.controllers', 'starter.services', 'ngCordova', 'ui-rangeSlider'])
+angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 //angular.module('starter', ['ionic', 'ngCordova'])
 .run(function($ionicPlatform) {
@@ -122,6 +122,12 @@ angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.co
    url: '/forhandsgranska',
    controller: 'previewCtrl',
    templateUrl: 'templates/preview.html'
+})
+
+  .state('attend', {
+   url: '/delta',
+   controller: 'attendCtrl',
+   templateUrl: 'templates/attend.html'
 })
 
   // if none of the above states are matched, use this as the fallback

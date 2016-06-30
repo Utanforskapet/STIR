@@ -1,6 +1,5 @@
 /* Empty. Add your own CSS if you like */
 
-
 .scroll {
     height: 100%;
 }
@@ -14,42 +13,11 @@
     /* overflow to handle inner floating block */
     justify-content: center;
     align-items: center;
- 
-}
-
-#left-column{
-    float: left;
-    width: 50%;
-    line-height:0;
-    
-}
-
-#right-column {
-    float: right;
-    width: 50%;
-    line-height: 0;
-}   
-
-#image-login {  
-    padding: 0px;
-    margin: 0px;
-    z-index: -5;
 }
 
 .overlay {
   background:rgba(0,0,0,0.6);
   z-index: 999;
-}
-
-.login-logo {
-  z-index: 3;
-  margin: auto;
-  position: absolute;
-  right: 5%;
-  top: 15%;
-  height: 30%;
-  width: 90%;
-  
 }
 
 .pink-header {
@@ -84,6 +52,13 @@
     margin-top: 33%;
 }
 
+.centerRecipe {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+
 .text_center {
     text-align: center;
 }
@@ -95,16 +70,24 @@
       background-repeat: no-repeat, no-repeat;
       background-size: 50% 25%;
 }
- /*right center, right top, left center,  left bottom, right bottom;*/
 /*
- <img ng-src="img/photo6.jpeg" width="100%" height="25%">
-          <img ng-src="img/photo8.jpeg" width="100%" height="25%">
-          <img ng-src="img/photo6.jpeg" width="100%" height="25%">
-          <img ng-src="img/photo3.jpeg" width="100%" height="25%">
-      </div>
-      <div id="right-column" class="overlay">
-         <img ng-src="img/photo5.jpeg" width="100%" height="25%">
-         <img ng-src="img/photo3.jpeg" width="100%" height="25%">
-         <img ng-src="img/photo8.jpeg" width="100%" height="25%">
-         <img ng-src="img/photo5.jpeg" width="100%" height="25%">
+.z-index {
+    position: relative;
+    /*height: 50%;
+    width: 100%;
+    z-index: -5;
+}
+
+.img_text {
+    position: absolute;
+    font-size:18px;
+    color: #FFFFFF;
+    margin: 0 auto;
+}
+
+.picture {
+    position: absolute;
+    z-index: -5;
+}
+ 
 */

@@ -15,14 +15,24 @@ angular.module('starter.services', [])
     }
 
 })
-
-.service('LocUser', function() {
-  // $scope.LocUser = LocUser;
+*/
+.factory('SharedUser', function($rootScope) {
+      //$scope.LocUser = LocUser;
       //console.log($scope.LocUser);
-    this.LocUser = "Hej";
-    return this.LocUser;
+    var SharedUser = {};
+    SharedUser.LocUser = "";
+    SharedUser.prepForBroadcast = function (user) {
+        this.LocUser = user;
+        this.broadcastItem();
+    };
 
-}) */
+    SharedUser.broadcastItem = function() {
+        $rootScope.$broadcast('handleBroadcast');
+    };
+
+    return SharedUser;
+
+}) 
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
