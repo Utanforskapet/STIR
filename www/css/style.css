@@ -70,4 +70,24 @@
       background-repeat: no-repeat, no-repeat;
       background-size: 50% 25%;
 }
+/*
+.z-index {
+    position: relative;
+    /*height: 50%;
+    width: 100%;
+    z-index: -5;
+}
+
+.img_text {
+    position: absolute;
+    font-size:18px;
+    color: #FFFFFF;
+    margin: 0 auto;
+}
+
+.picture {
+    position: absolute;
+    z-index: -5;
+}
  
+*/

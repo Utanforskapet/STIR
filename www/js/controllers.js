@@ -13,7 +13,6 @@ angular.module('starter.controllers', ['starter.services', 'firebase'])
     else {
       console.log('Not logged in yet');
 
-
     $scope.login = function() {
  
      authObject.$authWithOAuthPopup('facebook').then(function(authData) {
@@ -25,7 +24,6 @@ angular.module('starter.controllers', ['starter.services', 'firebase'])
      }).catch(function(error) {
            console.log('error' . error);
      })
-
  } 
  
 /*SAVE DATA TO DATABASE */
@@ -60,14 +58,47 @@ function getImg(authData) {
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
+ 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
   Chats.remove(chat);
   };
+   
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, $firebaseArray, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+
+     var ref = new Firebase("https://stir.firebaseio.com/chat");
+    $scope.chats = $firebaseArray(ref);
+
+    var ref = new Firebase("https://stir.firebaseio.com/chat");
+    var authData = ref.getAuth();
+
+    if (authData) {
+ 
+    url = 'https://STIR.firebaseio.com/users/' + authData.uid;
+    var ref = new Firebase(url);
+
+     ref.orderByKey().on("value", function(snapshot) {
+          var newPost = snapshot.val();
+       //   $scope.newPost = newPost;
+          console.log(newPost);
+          $scope.sendChat = function(chat) {
+          $scope.chats.$add({
+              user: newPost.name,
+              message: chat.message,
+              imgUrl: newPost.img
+          });
+          chat.message = "";
+     }
+     });
+               
+    } else {
+      console.log("User is logged out");
+    }
+
+
 })
 
 .controller('AccountCtrl', function($scope, $firebaseAuth,  $ionicActionSheet, $state, $ionicLoading, $firebaseObject) {
@@ -294,9 +325,9 @@ if (authData) {
     /* GET DATA FROM DATABASE */
   
     //Change view to location
-  /*   $scope.changeView2 = function(){
-         $state.go('tab.location');
-    }*/
+     $scope.changeView = function(){
+         $state.go('tab.chats');
+    }
 
     
 });

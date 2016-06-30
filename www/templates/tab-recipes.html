@@ -2,10 +2,14 @@
   <ion-content>
     <ion-list>
       <div ng-controller="recipesCtrl">
-        <img ng-src="img/photo6.jpeg" alt="" width="100%" height="50%" ng-click="changeView(recipes)">
-
-     <img ng-src="img/photo3.jpeg" alt="" width="100%" height="50%">
-
+        <div class="z-index">
+           <img class="picture" ng-src="img/photo6.jpeg" alt="" width="100%" height="50%" ng-click="changeView(recipes)">
+           <p class="textStyle img_text" style="font-size:18px;">Receptbanken </p> 
+        </div>
+        <div class="z-index">
+          <img ng-src="img/photo3.jpeg" class="z-index" alt="" width="100%" height="50%">
+           <p class="textStyle img_text" style="font-size:18px;" >Skapa eget recept </p>
+        </div>
      </div>
     </ion-list>
   </ion-content>
