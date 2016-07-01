@@ -38,6 +38,7 @@ ref.onAuth(function(authData) {
       provider: authData.provider,
       name: getName(authData),
       img: getImg(authData),
+      uid: authData.uid
     });
   }
 });
@@ -179,9 +180,11 @@ if (authData) {
           map: $scope.map,
           animation: google.maps.Animation.DROP,
           position: myLatLng,
-          icon: user.img
-          });      
-
+          icon: user.img,
+          title: 'HEJ'
+          });     
+        //  var authData = ref.getAuth();
+         
           window.google.maps.event.addListener(marker, 'click', function () {
                 // $rootScope.LocUser = LocUser;
                 // console.log($rootScope.LocUser);
@@ -191,10 +194,39 @@ if (authData) {
                //  };
                  $scope.$on('handleBroadcast', function() {
                  $scope.LocUser = SharedUser.LocUser;
-                 console.log($scope.LocUser);
+                 
+                //  url = 'https://STIR.firebaseio.com/users/' + authData.uid;
+                //  var ref = new Firebase(url);
+                //  var authData = ref.getAuth();
+
+                 console.log($scope.LocUser.uid);
+                 console.log(authData.uid); 
+                 
+                 if($rootScope.LocUser.uid == authData.uid) {
+
+                 var contentString = '<div id="content">'+
+                  '<div id="siteNotice">'+
+                  '</div>'+
+                  '<div id="bodyContent">'+
+                  '<p><b>Du anordnar redan denna middag.</b></p>'+
+                  '</div>'+
+                  '</div>';
+                
+                 var infowindow = new google.maps.InfoWindow({
+                 content: contentString
+                 });
+                 
+                 infowindow.open(map, marker);
+             
+                 console.log("Du anordnar redan denna middag");
+
+                 }
+                 else {
+                    $state.go('attend');
+                 }
                  });
 
-                 $state.go('attend');
+                // 
           }); 
      })
       
@@ -263,6 +295,7 @@ if (authData) {
  
     url = 'https://STIR.firebaseio.com/users/' + authData.uid;
     var ref = new Firebase(url);
+    
 
      ref.orderByKey().on("value", function(snapshot) {
           var newPost = snapshot.val();
@@ -327,11 +360,11 @@ if (authData) {
    $scope.$on('handleBroadcast', function() {
       $rootScope.LocUser = SharedUser.LocUser;
       LocUser = $scope.LocUser;
-      console.log(LocUser);
+    //  console.log(LocUser);
    });
 
   
-    console.log($rootScope.LocUser);
+   // console.log($rootScope.LocUser);
   
     //Change view to location
      $scope.changeView = function(){
