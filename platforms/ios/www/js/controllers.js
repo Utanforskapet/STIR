@@ -8,7 +8,7 @@ angular.module('starter.controllers', ['starter.services', 'firebase'])
     if (authData) {
       console.log('Logged in as', authData.uid);
       //Go to location when logged in
-       $state.go('tab.location');
+      $state.go('tab.location');
     }
     else {
       console.log('Not logged in yet');

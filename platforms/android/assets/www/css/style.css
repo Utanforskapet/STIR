@@ -64,8 +64,8 @@
 }
 
 #background {
-      background-image: url("../img/photo6.jpeg"), url("../img/photo8.jpeg"), url("../img/photo6.jpeg"), url("../img/photo3.jpeg"), 
-                        url("../img/photo5.jpeg"), url("../img/photo3.jpeg"), url("../img/photo8.jpeg"), url("../img/photo5.jpeg");
+      background-image: url("../img/rsz_photo6.jpg"), url("../img/rsz_photo8.jpg"), url("../img/rsz_photo6.jpg"), url("../img/rsz_photo3.jpg"), 
+                        url("../img/rsz_photo5.jpg"), url("../img/rsz_photo3.jpg"), url("../img/rsz_photo8.jpg"), url("../img/rsz_photo5.jpg");
       background-position: 0% 0%, 0% 33.333%, 0% 66.666%, 0% 100%, 100% 0%, 100% 33.333%, 100% 66.666%, 100% 100%;
       background-repeat: no-repeat, no-repeat;
       background-size: 50% 25%;

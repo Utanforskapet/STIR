@@ -70,7 +70,7 @@ angular.module('starter.services', [])
   var recipes = [{
     id: 1,
     name: 'Blåbärspaj',
-    img: 'img/photo8.jpeg',
+    img: 'img/rsz_photo8.jpg',
     recipe: '1 dl blåbär\n1 dl socker (drygt) \n2 msk vetemjöl \n100 g smör \n1/2 dl socker \n2 dl vetemjöl',
     tutorial: '1. Värm ugnen till 200°C.\n2. Skölj och rensa bären. Blanda dem med socker \noch mjöl.\
   \n3. Smält smöret till smuldegen. \nRör ner socker och mjöl. Rör tills det blivit en deg. \nLåt svalna något.\
@@ -79,11 +79,11 @@ angular.module('starter.services', [])
     }, {
     id: 2,
     name: 'Spagetti och köttfärssås',
-    img: 'img/photo3.jpeg'
+    img: 'img/rsz_photo3.jpg'
   }, {
     id: 3,
      name: 'Potatismos och köttbullar',
-    img: 'img/photo6.jpeg'
+    img: 'img/rsz_photo6.jpg'
  
   }];
   //  return recipes.recipe.replace(/\n/g, '<br />');

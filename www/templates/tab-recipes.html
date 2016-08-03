@@ -1,16 +1,40 @@
 <ion-view view-title="Receptbanken">
   <ion-content>
     <ion-list>
-      <div ng-controller="recipesCtrl">
-        <div class="z-index">
-           <img class="picture" ng-src="img/photo6.jpeg" alt="" width="100%" height="50%" ng-click="changeView(recipes)">
-           <p class="textStyle img_text" style="font-size:18px;">Receptbanken </p> 
+ 
+ <!--  <div ng-controller="recipesCtrl">  
+  <div class="overlay"> -->
+    <!--    <div>
+           <img ng-src="img/rsz_photo6.jpg" alt="" width="100%" height="50%" ng-click="changeView(recipes)">
+           <p class="textStyle img_text" style="font-size:18px;">Receptbanken </p>
+   
+          <img ng-src="img/rsz_photo3.jpg" alt="" width="100%" height="50%">
+          <p class="textStyle img_text" style="font-size:18px;" >Skapa eget recept </p>
         </div>
-        <div class="z-index">
-          <img ng-src="img/photo3.jpeg" class="z-index" alt="" width="100%" height="50%">
-           <p class="textStyle img_text" style="font-size:18px;" >Skapa eget recept </p>
-        </div>
-     </div>
+<!--    </div>
+   </div>  -->
+
+ <!--  <div class="overlay">  
+      <div class="centerRecipe">
+        <img src="img/rsz_photo6.jpg" id="z">
+        <img src="img/rsz_photo3.jpg">
+      </div>
+ <!--  </div> 
+
+      <div class="module"></div>-->
+      <div class="module darken1" ng-click="changeView(recipes)">
+        <i class="icon ion-clipboard centerRecipe img_text" style="font-size:30px; color: white;" ></i>
+       <p class="textStyle text_center" style="font-size:30px; color: white; font-weight: bold;">RECEPTBANKEN </p>
+        <p class="subheading text_center" style="font-size:16px; color: white;">Leta upp recept du vill laga här eller hitta <br> inspiration till 
+          att laga nya maträtter </p>
+       </div>
+   
+      <div class="module darken2">
+          <i class="icon ion-fork centerRecipe img_text" style="font-size:30px; color: white;" ></i>
+      <p class="textStyle text_center" style="font-size:30px; color: white; font-weight: bold;">SKAPA DITT EGNA RECEPT</p>
+       <p class="subheading text_center" style="font-size:16px; color: white;"> Lägg in ditt egna personliga recept</p>
+      </div>
+
     </ion-list>
   </ion-content>
 </ion-view>

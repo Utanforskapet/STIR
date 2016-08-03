@@ -15,9 +15,15 @@
     align-items: center;
 }
 
-.overlay {
-  background:rgba(0,0,0,0.6);
-  z-index: 999;
+.overlay{
+    position:absolute;
+    top:0px;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    background-color:rgba(0,0,0,0.5);
+    height: 300px;
+    z-index: 3;
 }
 
 .pink-header {
@@ -38,6 +44,13 @@
 
 .textStyle {
         font-family: 'Muli', sans-serif;
+       
+}
+
+.subheading {
+        font-family: 'Kaushan Script', cursive;
+        font-size: 22px;
+        color: #FFFFFF;
        
 }
 
@@ -64,30 +77,23 @@
 }
 
 #background {
-      background-image: url("../img/photo6.jpeg"), url("../img/photo8.jpeg"), url("../img/photo6.jpeg"), url("../img/photo3.jpeg"), 
-                        url("../img/photo5.jpeg"), url("../img/photo3.jpeg"), url("../img/photo8.jpeg"), url("../img/photo5.jpeg");
+      background-image: url("../img/rsz_photo6.jpg"), url("../img/rsz_photo8.jpg"), url("../img/rsz_photo6.jpg"), url("../img/rsz_photo3.jpg"), 
+                        url("../img/rsz_photo5.jpg"), url("../img/rsz_photo3.jpg"), url("../img/rsz_photo8.jpg"), url("../img/rsz_photo5.jpg");
       background-position: 0% 0%, 0% 33.333%, 0% 66.666%, 0% 100%, 100% 0%, 100% 33.333%, 100% 66.666%, 100% 100%;
       background-repeat: no-repeat, no-repeat;
       background-size: 50% 25%;
 }
 /*
-.z-index {
-    position: relative;
-    /*height: 50%;
-    width: 100%;
-    z-index: -5;
+.recipeImage {
+    background-image: url(img/rsz_photo6.jpg);
 }
-
-.img_text {
-    position: absolute;
-    font-size:18px;
-    color: #FFFFFF;
-    margin: 0 auto;
-}
-
-.picture {
-    position: absolute;
-    z-index: -5;
-}
- 
 */
+
+.tinted-image {
+  background: 
+    linear-gradient(
+      rgba(255, 0, 0, 0.45), 
+      rgba(255, 0, 0, 0.45)
+    ),
+    url(..img/rsz_photo6.jpg);
+}
