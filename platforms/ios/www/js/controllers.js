@@ -141,7 +141,7 @@ if (authData) {
 
 .controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth, $rootScope, SharedUser) {
 
-/*KARTA */
+ /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -167,10 +167,24 @@ var authData = ref.getAuth();
 
 if (authData) {
  
-    var ref = new Firebase('https://STIR.firebaseio.com/users')
+     var ref = new Firebase('https://STIR.firebaseio.com/users')
 
      ref.on("child_added", function(snapshot, prevChildKey) {
           var user = snapshot.val();
+
+       /*   GÖRA BILD RUND (???)
+          
+          var usrImg = new Image();
+          usrImg.id = "userImage";
+          usrImg.src = user.img;
+
+          document.body.appendChild(usrImg);
+          var image = document.getElementById("userImage");
+   
+          image.style.borderRadius = '50%';
+          console.log(image);
+
+           GÖRA BILD RUND (???)  */
 
           var myLatLng = new google.maps.LatLng(user.lat,	user.lon);
       
@@ -181,7 +195,7 @@ if (authData) {
           animation: google.maps.Animation.DROP,
           position: myLatLng,
           icon: user.img,
-          title: 'HEJ'
+          title: user.name
           });     
         //  var authData = ref.getAuth();
          
@@ -254,6 +268,13 @@ if (authData) {
       var ref = new Firebase("https://stir.firebaseio.com");
       var authData = ref.getAuth();
 
+      function initialize() {
+      var input = document.getElementById('searchTextField');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
        if (authData) {
       /* GET DATA FROM INPUT */
       $scope.master = {};
@@ -278,6 +299,7 @@ if (authData) {
           console.log("User is logged out");
       }
       /* SAVE DATA TO DATABASE */
+
 
     //Change view to preview
     $scope.changeView = function(preview){
@@ -314,9 +336,12 @@ if (authData) {
     }
 })
 
-.controller('receptbankCtrl', function($scope, Recipe) {
+.controller('receptbankCtrl', function($scope, Recipe, $location) {
     $scope.recipes = Recipe.all();
-    
+
+    $scope.go = function (path) {
+      $location.path(path);
+    }; 
 }) 
 
 .controller('recipeDeatilCtrl', function($scope, $stateParams, Recipe, $location) {

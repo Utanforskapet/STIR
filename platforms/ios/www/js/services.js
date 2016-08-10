@@ -79,11 +79,15 @@ angular.module('starter.services', [])
     }, {
     id: 2,
     name: 'Spagetti och köttfärssås',
-    img: 'img/rsz_photo3.jpg'
+    img: 'img/rsz_photo3.jpg',
+    recipe: 'hej',
+    tutorial: 'gör grejer'
   }, {
     id: 3,
      name: 'Potatismos och köttbullar',
-    img: 'img/rsz_photo6.jpg'
+    img: 'img/rsz_photo6.jpg',
+    recipe: 'hej',
+    tutorial: 'gör grejer'
  
   }];
   //  return recipes.recipe.replace(/\n/g, '<br />');

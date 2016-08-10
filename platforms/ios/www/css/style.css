@@ -71,6 +71,12 @@
     text-align: center;
 }
 
+.img_text {
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 17%;
+
+}
 
 .text_center {
     text-align: center;
@@ -83,17 +89,40 @@
       background-repeat: no-repeat, no-repeat;
       background-size: 50% 25%;
 }
-/*
-.recipeImage {
-    background-image: url(img/rsz_photo6.jpg);
-}
-*/
 
-.tinted-image {
-  background: 
+.module {
+    width: 100%;
+    height: 260px;
+}
+
+.darken1 {
+  background-image: 
     linear-gradient(
-      rgba(255, 0, 0, 0.45), 
-      rgba(255, 0, 0, 0.45)
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
     ),
-    url(..img/rsz_photo6.jpg);
+    url("../img/rsz_photo6.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.darken2 {
+  background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("../img/rsz_photo3.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+
+.wrapper {
+  position: relative;
+}
+
+.wrapper p {
+  bottom: 15%;
+  position: absolute;
 }

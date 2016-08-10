@@ -168,12 +168,15 @@ var authData = ref.getAuth();
 if (authData) {
  
      var ref = new Firebase('https://STIR.firebaseio.com/users')
-
+   // ref.child("users").child(authData.uid).set({
      ref.on("child_added", function(snapshot, prevChildKey) {
+         // var SnapshotUser = snapshot.child("users");
+         // console.log(SnapshotUser);
+        //  var users = SnapshotUser.val();
           var user = snapshot.val();
+          console.log(user);
 
        /*   GÖRA BILD RUND (???)
-          
           var usrImg = new Image();
           usrImg.id = "userImage";
           usrImg.src = user.img;
@@ -186,7 +189,7 @@ if (authData) {
 
            GÖRA BILD RUND (???)  */
 
-          var myLatLng = new google.maps.LatLng(user.lat,	user.lon);
+          var myLatLng = new google.maps.LatLng(user.ad.lat,	user.ad.lng);
       
           //Wait until the map is loaded
           //google.maps.event.addListenerOnce($scope.map, 'idle', function(){
@@ -197,24 +200,15 @@ if (authData) {
           icon: user.img,
           title: user.name
           });     
-        //  var authData = ref.getAuth();
          
           window.google.maps.event.addListener(marker, 'click', function () {
-                // $rootScope.LocUser = LocUser;
-                // console.log($rootScope.LocUser);
-                //User = LocUser
-              //  $scope.handleClick = function(user) {
+         
                  SharedUser.prepForBroadcast(user);
-               //  };
                  $scope.$on('handleBroadcast', function() {
                  $scope.LocUser = SharedUser.LocUser;
-                 
-                //  url = 'https://STIR.firebaseio.com/users/' + authData.uid;
-                //  var ref = new Firebase(url);
-                //  var authData = ref.getAuth();
-
+             
                  console.log($scope.LocUser.uid);
-                 console.log(authData.uid); 
+                // console.log(authData.uid); 
                  
                  if($rootScope.LocUser.uid == authData.uid) {
 
@@ -232,15 +226,11 @@ if (authData) {
                  
                  infowindow.open(map, marker);
              
-                 console.log("Du anordnar redan denna middag");
-
                  }
                  else {
                     $state.go('attend');
                  }
                  });
-
-                // 
           }); 
      })
       
@@ -264,42 +254,107 @@ if (authData) {
     }
 }) 
 
-.controller('CreateAdCtrl', function($scope, $location) {
+.controller('CreateAdCtrl', function($scope, $location, $rootScope) {
+
       var ref = new Firebase("https://stir.firebaseio.com");
       var authData = ref.getAuth();
 
-      function initialize() {
       var input = document.getElementById('searchTextField');
-      var autocomplete = new google.maps.places.Autocomplete(input);
-      }
+      autocomplete = new google.maps.places.Autocomplete(input);
+    
+        var $result = $(".js-result"),
+        $getvalues = $(".get-values"),
+        from = 0, to = 0;
 
-      google.maps.event.addDomListener(window, 'load', initialize);
+        //Save how many guests
+        var saveGuests = function (data) {
+            fromGuests = data.from;
+        };
 
-       if (authData) {
-      /* GET DATA FROM INPUT */
-      $scope.master = {};
+        var writeResult = function () {
 
-      $scope.update = function(ad) {
-      $scope.master = angular.copy(ad);
-      console.log(ad);
-      /* GET DATA FROM INPUT */
+            //if user is logged in
+            if (authData) {
+             $scope.master = {};
+            //Get data form input-field
+             $scope.update = function(ad) {
+                    //Saving the place, name, lat, lng
+                   var place = autocomplete.getPlace(),
+                       loc = place.name,
+                       lat = place.geometry.location.lat(),
+                       lng = place.geometry.location.lng();
 
-    /* SAVE DATA TO DATABASE */
+                  $scope.master = angular.copy(ad);
 
-    url = 'https://STIR.firebaseio.com/users/' + authData.uid;
-    var ref = new Firebase(url);
-  
-      var usersRef = ref.child("ad");
-      usersRef.set({
-          ad: ad
-      });
-    };
-      }
-      else {
-          console.log("User is logged out");
-      }
-      /* SAVE DATA TO DATABASE */
+                  url = 'https://STIR.firebaseio.com/users/' + authData.uid;
+                  var ref = new Firebase(url);
 
+                  //Save data to database
+                  var usersRef = ref.child("ad");
+                  usersRef.set({
+                      guests: fromGuests,
+                      ageMin: from,
+                      ageMax: to,
+                      ad: ad,
+                      place: loc,
+                      lat: lat,
+                      lng: lng
+                    });
+              };
+            }
+            else {
+              console.log("User is logged out");
+            }
+        };
+
+      var $value = $("#value");
+
+        //Create slider for how many guests
+        $value.ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: 1,
+            max: 15,
+            type: 'single',
+            step: 1,
+            postfix: " gäster",
+            grid: false,
+             onStart: function (data) {
+                saveGuests(data);
+                writeResult();
+            },
+            onChange: saveGuests,
+            onFinish: saveGuests
+        });
+    //Save the age-interval
+    var saveAge = function (data) {
+            from = data.from;
+            to = data.to;
+        };
+
+    var $range = $("#range"); 
+
+    //Slider for age-interval
+      $range.ionRangeSlider({
+            hide_min_max: true,
+              keyboard: true,
+              min: 18,
+              max: 99,
+              from: 18,
+              to: 25,
+              type: 'double',
+              step: 1,
+              postfix: " år",
+              grid: false,
+              onStart: function (data) {
+                saveAge(data);
+                writeResult();
+            },
+            onChange: saveAge,
+            onFinish: saveAge
+      });  
+
+     $getvalues.on("click", writeResult);
 
     //Change view to preview
     $scope.changeView = function(preview){
@@ -347,8 +402,6 @@ if (authData) {
 .controller('recipeDeatilCtrl', function($scope, $stateParams, Recipe, $location) {
   $scope.recipes = Recipe.get($stateParams.recipeId);
 
- // console.log($scope.recipes.id);
-
    /* SAVE RECIPE TO DATABASE */
     recipes = $scope.recipes;
    // console.log(recipes);
@@ -374,23 +427,18 @@ if (authData) {
    $scope.changeView = function(CreateAd){
    $location.path('annons'); // path not hash
     }
-} else {
+    } else {
       console.log("User is logged out");
-   }
-})
+      }
+    })
 
 .controller('attendCtrl', function($scope, $firebaseAuth, $state, $rootScope, SharedUser) {
-  //  LocUser =  $rootScope.LocUser;
-  //  console.log(LocUser);
+
    $scope.$on('handleBroadcast', function() {
       $rootScope.LocUser = SharedUser.LocUser;
       LocUser = $scope.LocUser;
-    //  console.log(LocUser);
    });
 
-  
-   // console.log($rootScope.LocUser);
-  
     //Change view to location
      $scope.changeView = function(){
          $state.go('tab.chats');
