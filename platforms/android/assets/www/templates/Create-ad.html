@@ -2,9 +2,6 @@
 <ion-view view-title="Annons">
   <ion-content class="padding">
   <div class="item item-body">
-
- <!-- <input id="searchTextField" type="text" size="50"> -->
-
  <ul class="list">
     <li>  <a class="item item-icon-left" data-toggle="collapse" data-target="#ListItem1"  style="color: #FF0059;">
           <i class="icon ion-person-add"></i>
@@ -12,14 +9,11 @@
           </a>
           <ul class="collapse" id="ListItem1">
                 <li>
-                      <div class="item item-input-inset">
-                      <label class="item-input-wrapper">            
-                      <input type="text" placeholder="Antal middagsgäster" ng-model="ad.guests">
-                      </label>
-                      <button class="button button-small" ng-click="update(ad)">
-                      Spara
-                     </button>
-                     </div>
+                   <div style="position: relative; padding: 6px;">
+                          <div> 
+                          <input type="text" id="value" value="" name="value"/>
+                          </div>
+                   </div>
                 </li>
           </ul>
     </li>
@@ -31,46 +25,52 @@
                  <li>
                     <div class="item item-input-inset">
                       <label class="item-input-wrapper">            
-                      <input type="text" placeholder="Skriv in plats" ng-model="ad.place">
+                      <input type="text" placeholer="Ange plats" id="searchTextField" style="width: 100%;">
                       </label>
-                      <button class="button button-small" ng-click="update(ad)">
-                      Spara
-                     </button>
                      </div>
                 </li>
           </ul>
     </li>
 
-    <li>  <a class="item item-icon-left" data-toggle="collapse" data-target="#ListItem3"  style="color: #FF0059;">
-          <i class="icon ion-edit"></i>
-          Bestäm ett tema  </a>
-          <ul class="collapse" id="ListItem3">
+     <li>  <a class="item item-icon-left" data-toggle="collapse" data-target="#ListItem4"  style="color: #FF0059;">
+          <i class="icon ion-calendar"></i>
+          Bestäm datum  </a>
+          <ul class="collapse" id="ListItem4">
                  <li>
                      <div class="item item-input-inset">
                       <label class="item-input-wrapper" >            
-                      <input type="text"  placeholder="Bestäm tema" ng-model="ad.theme">
+                          <input type="text" placeholder="Bestäm datum" id="datepicker" ng-model="ad.date">
                       </label>
-                      <button class="button button-small"" ng-click="update(ad)" >
-                      Spara
-                     </button>
                      </div>
                 </li>
           </ul>
     </li>
 
-    <li> <a class="item item-icon-left" data-toggle="collapse" data-target="#ListItem4"  style="color: #FF0059;">
+
+    <li>  <a class="item item-icon-left" data-toggle="collapse" data-target="#ListItem5"  style="color: #FF0059;">
+          <i class="icon ion-edit"></i>
+          Bestäm ett tema  </a>
+          <ul class="collapse" id="ListItem5">
+                 <li>
+                     <div class="item item-input-inset">
+                      <label class="item-input-wrapper" >            
+                      <input type="text"  id="theme" placeholder="Bestäm tema" ng-model="ad.theme">
+                      </label>
+                     </div>
+                </li>
+          </ul>
+    </li>
+
+    <li> <a class="item item-icon-left" data-toggle="collapse" data-target="#ListItem6"  style="color: #FF0059;">
          <i class="icon ion-person"></i>
          Bestäm ålder </a>
-         <ul class="collapse" id="ListItem4">
-                 <li>
-                    <div class="item item-input-inset">
-                      <label class="item-input-wrapper">            
-                      <input type="text" placeholder="Bestäm åldersintervall xx-xx" ng-model="ad.age">
-                      </label>
-                      <button class="button button-small" ng-click="update(ad)">
-                      Spara
-                     </button>
-                     </div>
+         <ul class="collapse" id="ListItem6">
+                 <li>     
+                      <div style="position: relative; padding: 6px;">
+                          <div> 
+                          <input type="text" id="range" value="" name="range"/>
+                          </div>
+                      </div>
                 </li>
           </ul>
     </li>
@@ -78,8 +78,11 @@
      <li> <a class="item item-icon-left" style="color: #FF0059;">
          <i class="icon ion-person-stalker"></i>
          Bjud in vänner </a> 
-         <ul class="item item-icon-left">
-          </ul>
+         <ul > 
+              <button class="button button-full get-values" id="check" ng-click="update(ad)">
+                   Spara
+             </button>
+      </ul>
      </li>
 </ul>
 

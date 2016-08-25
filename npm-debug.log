@@ -3,250 +3,219 @@
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'install',
 1 verbose cli   '-g',
-1 verbose cli   'cordova' ]
+1 verbose cli   'firebase-tools' ]
 2 info using npm@2.15.5
 3 info using node@v4.4.5
 4 verbose install initial load of /usr/local/lib/package.json
 5 verbose readDependencies loading dependencies from /usr/local/lib/package.json
-6 silly cache add args [ 'cordova', null ]
-7 verbose cache add spec cordova
+6 silly cache add args [ 'firebase-tools', null ]
+7 verbose cache add spec firebase-tools
 8 silly cache add parsed spec Result {
-8 silly cache add   raw: 'cordova',
+8 silly cache add   raw: 'firebase-tools',
 8 silly cache add   scope: null,
-8 silly cache add   name: 'cordova',
+8 silly cache add   name: 'firebase-tools',
 8 silly cache add   rawSpec: '',
 8 silly cache add   spec: 'latest',
 8 silly cache add   type: 'tag' }
-9 silly addNamed cordova@latest
-10 verbose addNamed "latest" is being treated as a dist-tag for cordova
-11 info addNameTag [ 'cordova', 'latest' ]
-12 silly mapToRegistry name cordova
+9 silly addNamed firebase-tools@latest
+10 verbose addNamed "latest" is being treated as a dist-tag for firebase-tools
+11 info addNameTag [ 'firebase-tools', 'latest' ]
+12 silly mapToRegistry name firebase-tools
 13 silly mapToRegistry using default registry
 14 silly mapToRegistry registry https://registry.npmjs.org/
 15 silly mapToRegistry data Result {
-15 silly mapToRegistry   raw: 'cordova',
+15 silly mapToRegistry   raw: 'firebase-tools',
 15 silly mapToRegistry   scope: null,
-15 silly mapToRegistry   name: 'cordova',
+15 silly mapToRegistry   name: 'firebase-tools',
 15 silly mapToRegistry   rawSpec: '',
 15 silly mapToRegistry   spec: 'latest',
 15 silly mapToRegistry   type: 'tag' }
-16 silly mapToRegistry uri https://registry.npmjs.org/cordova
-17 verbose addNameTag registry:https://registry.npmjs.org/cordova not in flight; fetching
-18 verbose request uri https://registry.npmjs.org/cordova
+16 silly mapToRegistry uri https://registry.npmjs.org/firebase-tools
+17 verbose addNameTag registry:https://registry.npmjs.org/firebase-tools not in flight; fetching
+18 verbose request uri https://registry.npmjs.org/firebase-tools
 19 verbose request no auth needed
-20 info attempt registry request try #1 at 15:58:16
-21 verbose request id 4a685d63dab04224
-22 verbose etag "AC99WEGXK71OOK86TYL8NU4JD"
-23 http request GET https://registry.npmjs.org/cordova
-24 http 200 https://registry.npmjs.org/cordova
-25 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-25 verbose headers   etag: '"930HMOK2ECDXGYAZOFBNWCC3C"',
-25 verbose headers   'content-type': 'application/json',
-25 verbose headers   'content-encoding': 'gzip',
-25 verbose headers   'cache-control': 'max-age=300',
-25 verbose headers   'content-length': '43839',
-25 verbose headers   'accept-ranges': 'bytes',
-25 verbose headers   date: 'Wed, 03 Aug 2016 13:58:16 GMT',
+20 info attempt registry request try #1 at 15:49:48
+21 verbose request id b3a78e784347d3f9
+22 verbose etag "CFMSJVHF32VAT3K1LLTQAKR02"
+23 http request GET https://registry.npmjs.org/firebase-tools
+24 http 304 https://registry.npmjs.org/firebase-tools
+25 verbose headers { date: 'Wed, 24 Aug 2016 13:49:48 GMT',
 25 verbose headers   via: '1.1 varnish',
-25 verbose headers   age: '229',
+25 verbose headers   'cache-control': 'max-age=300',
+25 verbose headers   etag: '"CFMSJVHF32VAT3K1LLTQAKR02"',
+25 verbose headers   age: '30',
 25 verbose headers   connection: 'keep-alive',
-25 verbose headers   'x-served-by': 'cache-bma7024-BMA',
+25 verbose headers   'x-served-by': 'cache-ams4433-AMS',
 25 verbose headers   'x-cache': 'HIT',
-25 verbose headers   'x-cache-hits': '2',
-25 verbose headers   'x-timer': 'S1470232696.085929,VS0,VE0',
+25 verbose headers   'x-cache-hits': '1',
+25 verbose headers   'x-timer': 'S1472046588.819622,VS0,VE0',
 25 verbose headers   vary: 'Accept-Encoding' }
-26 silly get cb [ 200,
-26 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-26 silly get     etag: '"930HMOK2ECDXGYAZOFBNWCC3C"',
-26 silly get     'content-type': 'application/json',
-26 silly get     'content-encoding': 'gzip',
-26 silly get     'cache-control': 'max-age=300',
-26 silly get     'content-length': '43839',
-26 silly get     'accept-ranges': 'bytes',
-26 silly get     date: 'Wed, 03 Aug 2016 13:58:16 GMT',
+26 silly get cb [ 304,
+26 silly get   { date: 'Wed, 24 Aug 2016 13:49:48 GMT',
 26 silly get     via: '1.1 varnish',
-26 silly get     age: '229',
+26 silly get     'cache-control': 'max-age=300',
+26 silly get     etag: '"CFMSJVHF32VAT3K1LLTQAKR02"',
+26 silly get     age: '30',
 26 silly get     connection: 'keep-alive',
-26 silly get     'x-served-by': 'cache-bma7024-BMA',
+26 silly get     'x-served-by': 'cache-ams4433-AMS',
 26 silly get     'x-cache': 'HIT',
-26 silly get     'x-cache-hits': '2',
-26 silly get     'x-timer': 'S1470232696.085929,VS0,VE0',
+26 silly get     'x-cache-hits': '1',
+26 silly get     'x-timer': 'S1472046588.819622,VS0,VE0',
 26 silly get     vary: 'Accept-Encoding' } ]
-27 verbose get saving cordova to /Users/johanna/.npm/registry.npmjs.org/cordova/.cache.json
-28 verbose correctMkdir /Users/johanna/.npm correctMkdir not in flight; initializing
-29 silly addNameTag next cb for cordova with tag latest
-30 silly addNamed cordova@6.3.0
-31 verbose addNamed "6.3.0" is a plain semver version for cordova
-32 silly mapToRegistry name cordova
-33 silly mapToRegistry using default registry
-34 silly mapToRegistry registry https://registry.npmjs.org/
-35 silly mapToRegistry data Result {
-35 silly mapToRegistry   raw: 'cordova',
-35 silly mapToRegistry   scope: null,
-35 silly mapToRegistry   name: 'cordova',
-35 silly mapToRegistry   rawSpec: '',
-35 silly mapToRegistry   spec: 'latest',
-35 silly mapToRegistry   type: 'tag' }
-36 silly mapToRegistry uri https://registry.npmjs.org/cordova
-37 verbose addRemoteTarball https://registry.npmjs.org/cordova/-/cordova-6.3.0.tgz not in flight; adding
-38 verbose addRemoteTarball [ 'https://registry.npmjs.org/cordova/-/cordova-6.3.0.tgz',
-38 verbose addRemoteTarball   'fe886017d03402b9e8a266c16767059036b6627e' ]
-39 info retry fetch attempt 1 at 15:58:16
-40 info attempt registry request try #1 at 15:58:16
-41 http fetch GET https://registry.npmjs.org/cordova/-/cordova-6.3.0.tgz
-42 http fetch 200 https://registry.npmjs.org/cordova/-/cordova-6.3.0.tgz
-43 silly fetchAndShaCheck shasum fe886017d03402b9e8a266c16767059036b6627e
-44 verbose addTmpTarball /var/folders/7n/_3zyp0p17ml4hvwy5wgw70c80000gn/T/npm-37070-a9be893b/registry.npmjs.org/cordova/-/cordova-6.3.0.tgz not in flight; adding
-45 verbose addTmpTarball already have metadata; skipping unpack for cordova@6.3.0
-46 verbose correctMkdir /Users/johanna/.npm correctMkdir not in flight; initializing
-47 silly cache afterAdd cordova@6.3.0
-48 verbose afterAdd /Users/johanna/.npm/cordova/6.3.0/package/package.json not in flight; writing
-49 verbose correctMkdir /Users/johanna/.npm correctMkdir not in flight; initializing
-50 verbose afterAdd /Users/johanna/.npm/cordova/6.3.0/package/package.json written
-51 silly install resolved [ { name: 'cordova',
-51 silly install resolved     version: '6.3.0',
-51 silly install resolved     preferGlobal: 'true',
-51 silly install resolved     description: 'Cordova command line interface tool',
-51 silly install resolved     main: 'cordova',
-51 silly install resolved     engines: { node: '>=0.9.9' },
-51 silly install resolved     engineStrict: true,
-51 silly install resolved     bin: { cordova: './bin/cordova' },
-51 silly install resolved     scripts:
-51 silly install resolved      { test: 'node node_modules/jasmine-node/bin/jasmine-node --captureExceptions --color spec',
-51 silly install resolved        cover: 'node node_modules/istanbul/lib/cli.js cover --root src --print detail node_modules/jasmine-node/bin/jasmine-node -- spec' },
-51 silly install resolved     repository:
-51 silly install resolved      { type: 'git',
-51 silly install resolved        url: 'https://git-wip-us.apache.org/repos/asf/cordova-cli.git' },
-51 silly install resolved     bugs:
-51 silly install resolved      { url: 'https://issues.apache.org/jira/browse/CB',
-51 silly install resolved        email: 'dev@cordova.apache.org' },
-51 silly install resolved     keywords: [ 'cordova', 'client', 'cli' ],
-51 silly install resolved     dependencies:
-51 silly install resolved      { 'cordova-lib': '6.3.0',
-51 silly install resolved        'cordova-common': '1.4.x',
-51 silly install resolved        q: '1.0.1',
-51 silly install resolved        nopt: '3.0.1',
-51 silly install resolved        underscore: '1.7.0',
-51 silly install resolved        'update-notifier': '^0.5.0',
-51 silly install resolved        insight: '~0.8.2' },
-51 silly install resolved     devDependencies:
-51 silly install resolved      { istanbul: '^0.3.4',
-51 silly install resolved        grunt: '0.4.5',
-51 silly install resolved        'grunt-retire': '0.3.7',
-51 silly install resolved        'jasmine-node': '1.14.5' },
-51 silly install resolved     author: { name: 'Anis Kadri' },
-51 silly install resolved     contributors:
-51 silly install resolved      [ [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object] ],
-51 silly install resolved     license: 'Apache-2.0',
-51 silly install resolved     _id: 'cordova@6.3.0',
-51 silly install resolved     _shasum: 'fe886017d03402b9e8a266c16767059036b6627e',
-51 silly install resolved     _resolved: 'https://registry.npmjs.org/cordova/-/cordova-6.3.0.tgz',
-51 silly install resolved     _from: 'cordova@latest',
-51 silly install resolved     _npmVersion: '3.10.5',
-51 silly install resolved     _nodeVersion: '6.3.0',
-51 silly install resolved     _npmUser:
-51 silly install resolved      { name: 'kotikov.vladimir',
-51 silly install resolved        email: 'kotikov.vladimir@gmail.com' },
-51 silly install resolved     dist:
-51 silly install resolved      { shasum: 'fe886017d03402b9e8a266c16767059036b6627e',
-51 silly install resolved        tarball: 'https://registry.npmjs.org/cordova/-/cordova-6.3.0.tgz' },
-51 silly install resolved     maintainers:
-51 silly install resolved      [ [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object],
-51 silly install resolved        [Object] ],
-51 silly install resolved     _npmOperationalInternal:
-51 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
-51 silly install resolved        tmp: 'tmp/cordova-6.3.0.tgz_1469123615353_0.8465652170125395' },
-51 silly install resolved     directories: {} } ]
-52 info install cordova@6.3.0 into /usr/local/lib
-53 info installOne cordova@6.3.0
-54 verbose installOne of cordova to /usr/local/lib not in flight; installing
-55 verbose correctMkdir /Users/johanna/.npm/_locks correctMkdir not in flight; initializing
-56 verbose lock using /Users/johanna/.npm/_locks/cordova-fa12e2e096426a32.lock for /usr/local/lib/node_modules/cordova
-57 silly install write writing cordova 6.3.0 to /usr/local/lib/node_modules/cordova
-58 verbose unbuild lib/node_modules/cordova
-59 info preuninstall cordova@6.2.0
-60 info uninstall cordova@6.2.0
-61 verbose unbuild rmStuff cordova@6.2.0 from /usr/local/lib/node_modules
-62 silly gentlyRm /usr/local/bin/cordova is being gently removed
-63 silly gentlyRm verifying /usr/local is an npm working directory
-64 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
-65 silly gentlyRm deletion target /usr/local/bin/cordova is under /usr/local
-66 verbose gentlyRm vacuuming from /usr/local/bin/cordova up to /usr/local
-67 silly vacuum-fs removing /usr/local/bin/cordova
-68 verbose unlock done using /Users/johanna/.npm/_locks/cordova-fa12e2e096426a32.lock for /usr/local/lib/node_modules/cordova
-69 verbose stack Error: EACCES: permission denied, unlink '/usr/local/bin/cordova'
-69 verbose stack     at Error (native)
-70 verbose cwd /Users/johanna/Documents/Sommarmatchen/STIR
-71 error Darwin 15.5.0
-72 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "cordova"
-73 error node v4.4.5
-74 error npm  v2.15.5
-75 error path /usr/local/bin/cordova
-76 error code EACCES
-77 error errno -13
-78 error syscall unlink
-79 error Error: EACCES: permission denied, unlink '/usr/local/bin/cordova'
-79 error     at Error (native)
-79 error  { [Error: EACCES: permission denied, unlink '/usr/local/bin/cordova']
-79 error   errno: -13,
-79 error   code: 'EACCES',
-79 error   syscall: 'unlink',
-79 error   path: '/usr/local/bin/cordova' }
-80 error Please try running this command again as root/Administrator.
-81 verbose exit [ -13, true ]
-82 verbose unbuild lib/node_modules/cordova
-83 info preuninstall cordova@6.2.0
-84 info uninstall cordova@6.2.0
-85 verbose unbuild rmStuff cordova@6.2.0 from /usr/local/lib/node_modules
-86 silly gentlyRm /usr/local/bin/cordova is being gently removed
-87 silly gentlyRm verifying /usr/local is an npm working directory
-88 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
-89 silly gentlyRm deletion target /usr/local/bin/cordova is under /usr/local
-90 verbose gentlyRm vacuuming from /usr/local/bin/cordova up to /usr/local
-91 silly vacuum-fs removing /usr/local/bin/cordova
-92 error error rolling back Error: EACCES: permission denied, unlink '/usr/local/bin/cordova'
-92 error error rolling back     at Error (native)
-92 error error rolling back  { [Error: EACCES: permission denied, unlink '/usr/local/bin/cordova']
-92 error error rolling back   errno: -13,
-92 error error rolling back   code: 'EACCES',
-92 error error rolling back   syscall: 'unlink',
-92 error error rolling back   path: '/usr/local/bin/cordova' }
+27 verbose etag https://registry.npmjs.org/firebase-tools from cache
+28 verbose get saving firebase-tools to /Users/johanna/.npm/registry.npmjs.org/firebase-tools/.cache.json
+29 verbose correctMkdir /Users/johanna/.npm correctMkdir not in flight; initializing
+30 silly addNameTag next cb for firebase-tools with tag latest
+31 silly addNamed firebase-tools@3.0.7
+32 verbose addNamed "3.0.7" is a plain semver version for firebase-tools
+33 silly cache afterAdd firebase-tools@3.0.7
+34 verbose afterAdd /Users/johanna/.npm/firebase-tools/3.0.7/package/package.json not in flight; writing
+35 verbose correctMkdir /Users/johanna/.npm correctMkdir not in flight; initializing
+36 verbose afterAdd /Users/johanna/.npm/firebase-tools/3.0.7/package/package.json written
+37 silly install resolved [ { name: 'firebase-tools',
+37 silly install resolved     version: '3.0.7',
+37 silly install resolved     description: 'Command-Line Interface for Firebase',
+37 silly install resolved     main: 'index.js',
+37 silly install resolved     bin: { firebase: './bin/firebase' },
+37 silly install resolved     scripts: { test: 'gulp' },
+37 silly install resolved     repository:
+37 silly install resolved      { type: 'git',
+37 silly install resolved        url: 'git+https://github.com/firebase/firebase-tools.git' },
+37 silly install resolved     keywords:
+37 silly install resolved      [ 'cdn',
+37 silly install resolved        'cli',
+37 silly install resolved        'ssl',
+37 silly install resolved        'cloud',
+37 silly install resolved        'hosting',
+37 silly install resolved        'firebase',
+37 silly install resolved        'realtime',
+37 silly install resolved        'websockets',
+37 silly install resolved        'synchronization' ],
+37 silly install resolved     preferGlobal: true,
+37 silly install resolved     engines: { node: '>=0.10.0' },
+37 silly install resolved     'engine-strict': true,
+37 silly install resolved     author: { name: 'Firebase', url: 'https://firebase.google.com/' },
+37 silly install resolved     license: 'MIT',
+37 silly install resolved     bugs: { url: 'https://github.com/firebase/firebase-tools/issues' },
+37 silly install resolved     files: [ 'bin/**', 'lib/**', 'commands/**', 'templates/**', 'index.js' ],
+37 silly install resolved     homepage: 'https://github.com/firebase/firebase-tools',
+37 silly install resolved     dependencies:
+37 silly install resolved      { archiver: '^0.16.0',
+37 silly install resolved        chalk: '^1.1.0',
+37 silly install resolved        cjson: '^0.3.1',
+37 silly install resolved        'cli-table': '^0.3.1',
+37 silly install resolved        commander: '^2.8.1',
+37 silly install resolved        'concat-stream': '^1.5.0',
+37 silly install resolved        configstore: '^1.2.0',
+37 silly install resolved        didyoumean: '^1.2.1',
+37 silly install resolved        'exit-code': '^1.0.2',
+37 silly install resolved        filesize: '^3.1.3',
+37 silly install resolved        firebase: '2.x.x',
+37 silly install resolved        'fs-extra': '^0.23.1',
+37 silly install resolved        'fstream-ignore': '^1.0.2',
+37 silly install resolved        googleapis: '^2.1.7',
+37 silly install resolved        inquirer: '^0.12.0',
+37 silly install resolved        jsonschema: '^1.0.2',
+37 silly install resolved        jsonwebtoken: '^5.4.0',
+37 silly install resolved        lodash: '^4.6.1',
+37 silly install resolved        'node-uuid': '^1.4.3',
+37 silly install resolved        open: '^0.0.5',
+37 silly install resolved        portfinder: '^0.4.0',
+37 silly install resolved        progress: '^1.1.8',
+37 silly install resolved        request: '^2.58.0',
+37 silly install resolved        rsvp: '^3.0.18',
+37 silly install resolved        semver: '^5.0.3',
+37 silly install resolved        shelljs: '^0.5.3',
+37 silly install resolved        superstatic: '^4.0',
+37 silly install resolved        tar: '^2.2.0',
+37 silly install resolved        through: '^2.3.8',
+37 silly install resolved        tmp: '0.0.27',
+37 silly install resolved        'universal-analytics': '^0.3.9',
+37 silly install resolved        'update-notifier': '^0.5.0',
+37 silly install resolved        'user-home': '^2.0.0',
+37 silly install resolved        uuid: '^2.0.1',
+37 silly install resolved        winston: '^1.0.1' },
+37 silly install resolved     devDependencies:
+37 silly install resolved      { chai: '^3.0.0',
+37 silly install resolved        'chai-as-promised': '^5.1.0',
+37 silly install resolved        coveralls: '2.11.2',
+37 silly install resolved        eslint: '^1.4.1',
+37 silly install resolved        gulp: '^3.9.0',
+37 silly install resolved        'gulp-eslint': '^1.0.0',
+37 silly install resolved        'gulp-exit': '0.0.2',
+37 silly install resolved        'gulp-istanbul': '^0.10.0',
+37 silly install resolved        'gulp-mocha': '^2.1.2',
+37 silly install resolved        'jshint-stylish': '^2.0.1',
+37 silly install resolved        nock: '^2.10.0',
+37 silly install resolved        sinon: '^1.17.4',
+37 silly install resolved        'sinon-as-promised': '^4.0.0',
+37 silly install resolved        'sinon-chai': '^2.8.0' },
+37 silly install resolved     gitHead: '56973e24102a2e7d5392b5fe1586ad2027d7e03f',
+37 silly install resolved     _id: 'firebase-tools@3.0.7',
+37 silly install resolved     _shasum: 'd94e541904b820b3976ec1ab52e5ec09d5820a7b',
+37 silly install resolved     _from: 'firebase-tools@latest',
+37 silly install resolved     _npmVersion: '2.7.5',
+37 silly install resolved     _nodeVersion: '0.10.38',
+37 silly install resolved     _npmUser: { name: 'firebase', email: 'operations@firebase.com' },
+37 silly install resolved     maintainers: [ [Object] ],
+37 silly install resolved     dist:
+37 silly install resolved      { shasum: 'd94e541904b820b3976ec1ab52e5ec09d5820a7b',
+37 silly install resolved        tarball: 'https://registry.npmjs.org/firebase-tools/-/firebase-tools-3.0.7.tgz' },
+37 silly install resolved     _npmOperationalInternal:
+37 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+37 silly install resolved        tmp: 'tmp/firebase-tools-3.0.7.tgz_1470962598106_0.5898668966256082' },
+37 silly install resolved     directories: {},
+37 silly install resolved     _resolved: 'https://registry.npmjs.org/firebase-tools/-/firebase-tools-3.0.7.tgz',
+37 silly install resolved     readme: 'ERROR: No README data found!' } ]
+38 info install firebase-tools@3.0.7 into /usr/local/lib
+39 info installOne firebase-tools@3.0.7
+40 verbose installOne of firebase-tools to /usr/local/lib not in flight; installing
+41 verbose correctMkdir /Users/johanna/.npm/_locks correctMkdir not in flight; initializing
+42 verbose lock using /Users/johanna/.npm/_locks/firebase-tools-10d1b8d676fd02fa.lock for /usr/local/lib/node_modules/firebase-tools
+43 silly install write writing firebase-tools 3.0.7 to /usr/local/lib/node_modules/firebase-tools
+44 verbose unbuild lib/node_modules/firebase-tools
+45 silly gentlyRm /usr/local/lib/node_modules/firebase-tools is being purged from base /usr/local
+46 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/firebase-tools
+47 verbose tar unpack /Users/johanna/.npm/firebase-tools/3.0.7/package.tgz
+48 verbose tar unpacking to /usr/local/lib/node_modules/firebase-tools
+49 silly gentlyRm /usr/local/lib/node_modules/firebase-tools is being purged
+50 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/firebase-tools
+51 silly gunzTarPerm modes [ '755', '644' ]
+52 error tar.unpack untar error /Users/johanna/.npm/firebase-tools/3.0.7/package.tgz
+53 verbose unlock done using /Users/johanna/.npm/_locks/firebase-tools-10d1b8d676fd02fa.lock for /usr/local/lib/node_modules/firebase-tools
+54 verbose fstream_path /usr/local/lib/node_modules/firebase-tools
+55 verbose fstream_type Directory
+56 verbose fstream_class DirWriter
+57 verbose stack Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/firebase-tools'
+57 verbose stack     at Error (native)
+58 verbose fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25
+58 verbose fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53
+58 verbose fstream_stack FSReqWrap.oncomplete (fs.js:82:15)
+59 verbose cwd /Users/johanna/Documents/Sommarmatchen/STIR
+60 error Darwin 15.5.0
+61 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "firebase-tools"
+62 error node v4.4.5
+63 error npm  v2.15.5
+64 error path /usr/local/lib/node_modules/firebase-tools
+65 error code EACCES
+66 error errno -13
+67 error syscall mkdir
+68 error Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/firebase-tools'
+68 error     at Error (native)
+68 error  { [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/firebase-tools']
+68 error   errno: -13,
+68 error   code: 'EACCES',
+68 error   syscall: 'mkdir',
+68 error   path: '/usr/local/lib/node_modules/firebase-tools',
+68 error   fstream_type: 'Directory',
+68 error   fstream_path: '/usr/local/lib/node_modules/firebase-tools',
+68 error   fstream_class: 'DirWriter',
+68 error   fstream_stack:
+68 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25',
+68 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53',
+68 error      'FSReqWrap.oncomplete (fs.js:82:15)' ] }
+69 error Please try running this command again as root/Administrator.
+70 verbose exit [ -13, true ]
+71 verbose unbuild lib/node_modules/firebase-tools
+72 silly gentlyRm /usr/local/lib/node_modules/firebase-tools is being purged from base /usr/local
+73 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/firebase-tools

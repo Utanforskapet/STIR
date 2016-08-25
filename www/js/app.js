@@ -70,6 +70,17 @@ angular.module('starter', ['ionic','firebase', 'ionic.service.core', 'starter.co
         }
       }
     })
+/*
+    .state('tab.rooms', {
+    url: '/rooms',
+    views: {
+        'tab-rooms': {
+            templateUrl: 'templates/tab-rooms.html',
+            controller: 'RoomsCtrl'
+        }
+    }
+})
+*/
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
