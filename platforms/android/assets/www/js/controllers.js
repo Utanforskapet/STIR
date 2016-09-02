@@ -163,16 +163,51 @@ if (authData) {
 	};
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth, $rootScope, SharedUser) {
 
- /*KARTA */
+
+.controller('LocationCtrl', function($scope, $state, $firebaseAuth, $rootScope, SharedUser, $cordovaGeolocation) {
+// $ionicLoading
+
+  // google.maps.event.addDomListener(window, 'load', function() {
+        var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+ 
+        var mapOptions = {
+            center: myLatlng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+ 
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+ 
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            var myLocation = new google.maps.Marker({
+                position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+                map: map,
+                title: "My Location"
+            });
+        });
+ 
+        $scope.map = map;
+   //});
+
+/*
+  $scope.$on('$ionicView.afterEnter', function () {
+      vm.showMap = true;
+  });
+  $scope.$on('$ionicView.beforeLeave', function () {
+      vm.showMap = false;
+  });
+*/
+  
+ /*KARTA 
  var options = {timeout: 10000, enableHighAccuracy: true};
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
  
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-   // var myLatLng = new google.maps.LatLng(58.58930,	16.19930);
- 
+   console.log(latLng);
+   
     var mapOptions = {
       center: latLng,
       zoom: 15,
@@ -212,7 +247,7 @@ if (authData) {
           image.style.borderRadius = '50%';
           console.log(image.src);
 
-         /*  GÖRA BILD RUND (???)  */
+         /*  GÖRA BILD RUND (???)  
 
           var myLatLng = new google.maps.LatLng(user.ad.lat,	user.ad.lng);
       
@@ -252,7 +287,7 @@ if (authData) {
                  infowindow.open(map, marker);
              
                  }
-                 else {*/
+                 else { 
                     $state.go('attend');
               //   }
                  });
@@ -268,7 +303,7 @@ if (authData) {
   });    
     /*KARTA */
 
-  var deploy = new Ionic.Deploy();
+  //var deploy = new Ionic.Deploy();
 
 })
  
@@ -317,15 +352,6 @@ if (authData) {
              $scope.master = {};
             //Get data form input-field
              $scope.update = function(ad) {
-
-           /*   $('#check').click(function(){
-                if($.trim($('#theme').val()) == ''){
-                alert('Input can not be left blank');
-                }
-                else { *()
-                  console.log('hallååå');
-                }
-                });   */
 
                 //Fungerar men man måste klicka flera gånger på "spara"-knappen....
                 $('#check').click(function()

@@ -1,8 +1,8 @@
 <ion-view view-title="Chats">
   <ion-content>
    <ion-list>
-     <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
+    <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+        <img ng-src="{{LocUser.img}}">
         <h2>{{LocUser.name}}</h2>
         <p>{{chat.lastText}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
@@ -12,6 +12,24 @@
         </ion-option-button>
       </ion-item>
     </ion-list> 
-   
+ <!-- <ion-list>
+   <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="room in [rooms[rooms.length-1]] track by $index"  type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+       <p style="color: black">{{rooms}}</p>
+     
+    <!--   <p> VAD HÄNDER </p>  -->
+   <!--  <div ng-repeat="(key, value) in chat">
+           {{key}} : {{value}}
+         </div> 
+   </ion-item> 
+    </ion-list> 
+      <button ng-click="reloadListUsers()" > reload </button>
+       <li ng-show="!rooms.length">No events</li>
+       <li ng-hide="rooms.length">No events</li>
+    -->
+    <!--  <div> 
+        <p> {{rooms.message}}</p>
+         {{rooms[rooms.length - 1].message}}  
+         <li ng-show="!rooms.length">No events</li>
+      </div>-->
   </ion-content>
 </ion-view>

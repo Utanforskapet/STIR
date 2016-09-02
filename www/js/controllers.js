@@ -60,32 +60,62 @@ function getImg(authData) {
 
 //.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $rootScope) {})
 
-.controller('ChatsCtrl', function($scope, Chats, SharedUser, $rootScope) {
+.controller('ChatsCtrl', function($scope, SharedUser, $rootScope, $firebaseArray, Chats) {
 
- /* getArticlePromise().then(function(data) {
-    $scope.data = data;
+/*  $scope.rooms = [];
+  var ref = new Firebase("https://stir.firebaseio.com/chats");
+  var authData = ref.getAuth();*/
 
-  })*/
+ //  var ref = new Firebase("https://stir.firebaseio.com/chats/" + authData.uid);
+  //  $scope.chats = $firebaseArray(ref);
 
-   $scope.rooms = Chats.all();
-   console.log($scope.rooms);
-   //MyArray = $scope.rooms;
+  //  if (authData) {
 
- //  for(var i = 0; i < MyArray.length: i++)
- //  console.table(MyArray);
- //  console.log(MyArray.$id);
- //  console.log(MyArray[0]);
+   /*   ref.orderByKey().on("value", function(snapshot) {
+            var rooms = snapshot.val();
+
+            for (keys in rooms){
+            console.log(rooms[keys].user);
+            $scope.rooms = rooms[keys].user;
+           // return $scope.rooms;
+            };*/
+
+          //  console.log(rooms);
+          //  $scope.rooms = rooms;
+          //  console.log($scope.rooms);
+          //  return $scope.rooms;
+          
+    //  });
   
-  
-  //$scope.chats = Chats;
-  //console.log($scope.chats);
-  //chats.authDataCallback();
 
-  //console.log($scope.chats);
-  /*console.log($scope.chats);
+  // var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10209542863159430/");
+  /*    rooms = $firebaseArray(ref);
+    
+     // to take an action after the data loads, use the $loaded() promise
+     rooms.$loaded().then(function() {
+        for(var i = 0; i < rooms.length; i++) {
+            console.log("loaded record rooms=", rooms[i].message);
+            $scope.rooms = rooms[i];
+            console.log($scope.rooms);
+          //  console.log($scope.rooms);
+         //   return $scope.rooms;
+       }*/
+
+ /* GET DATA FROM DATABASE */
+
+        /*    for (keys in rooms){
+            console.log(rooms[keys].message);
+            $scope.rooms = rooms[keys].message;
+            //alertMessage = rooms.text;
+         //  return rooms[value];
+        };*/
+          
+        
+   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
   Chats.remove(chat);
-  }; */
+  };
+
    $scope.$on('handleBroadcast', function() {
       $rootScope.LocUser = SharedUser.LocUser;
       LocUser = $scope.LocUser;
@@ -93,7 +123,7 @@ function getImg(authData) {
 
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, $firebaseArray, Chats, SharedUser, $rootScope) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, $firebaseArray, SharedUser, $rootScope, Chats) {
  // $scope.chat = Chats.get($stateParams.chatId);
 
    $scope.$on('handleBroadcast', function() {
@@ -163,8 +193,43 @@ if (authData) {
 	};
 })
 
-.controller('LocationCtrl', function($scope, $state, $cordovaGeolocation, $firebaseAuth, $rootScope, SharedUser) {
 
+
+.controller('LocationCtrl', function($scope, $state, $firebaseAuth, $rootScope, SharedUser, $cordovaGeolocation) {
+// $ionicLoading
+
+   /* google.maps.event.addDomListener(window, 'load', function() {
+        var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+ 
+        var mapOptions = {
+            center: myLatlng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+ 
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+ 
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            var myLocation = new google.maps.Marker({
+                position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+                map: map,
+                title: "My Location"
+            });
+        });
+ 
+        $scope.map = map;
+   }); */
+
+/*
+  $scope.$on('$ionicView.afterEnter', function () {
+      vm.showMap = true;
+  });
+  $scope.$on('$ionicView.beforeLeave', function () {
+      vm.showMap = false;
+  });
+*/
+  
  /*KARTA */
  var options = {timeout: 10000, enableHighAccuracy: true};
 
@@ -172,7 +237,7 @@ if (authData) {
  
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
    console.log(latLng);
-
+   
     var mapOptions = {
       center: latLng,
       zoom: 15,
@@ -252,7 +317,7 @@ if (authData) {
                  infowindow.open(map, marker);
              
                  }
-                 else {*/
+                 else { */
                     $state.go('attend');
               //   }
                  });
@@ -268,7 +333,7 @@ if (authData) {
   });    
     /*KARTA */
 
-  var deploy = new Ionic.Deploy();
+  //var deploy = new Ionic.Deploy();
 
 })
  

@@ -84,7 +84,7 @@ promise.then(function(greeting) {
 })*/
 
 
-  .factory('Chats', function($firebase, $firebaseAuth, $firebaseArray, $timeout) {
+  .factory('Chats', function($firebase, $firebaseAuth, $firebaseArray, $timeout, $firebaseObject) {
    /*function getPromise() {
 
         return new Promise(function(resolve, reject) {
@@ -92,18 +92,50 @@ promise.then(function(greeting) {
             ref.on('child_added', resolve);
         });
     }*/
-
-    var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10207972573965236/");
-  //  hej = ref.child('-KOspZVS3qOMEWQuXope');
+    //facebook:10209542863159430 
+  //  var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10209542863159430/-KOspZVS3qOMEWQuXope");
+    var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10209542863159430/");
+    //hej = ref.child('user');
    // var rooms = $firebaseArray(ref.child('-KOspZVS3qOMEWQuXope'));
    // hej = ref.child('-KOspZVS3qOMEWQuXope').set('message');
 
-  //  $timeout(function() {
-    // DO SOMETHING
-  //  }, 3000);
+      var rooms = $firebaseArray(ref);
 
-     var rooms = $firebaseArray(ref);
+      var obj = $firebaseObject(ref);
+
+     // to take an action after the data loads, use the $loaded() promise
+     obj.$loaded().then(function() {
+        console.log("loaded record:", obj.$id);
+
+       // To iterate the key/value pairs of the object, use angular.forEach()
+       angular.forEach(obj, function(value, key) {
+          console.log(key, value);
+       });
+     });
+
+     // To make the data available in the DOM, assign it to $scope
+    // $scope.data = obj;
+
+     // For three-way data bindings, bind it to the scope instead
+    // obj.$bindTo($scope, "data");
+  
+
+
+
+  var p = Promise.resolve([1,2,3]);
+      p.then(function(v) {
+      console.log(v[0]); // 1
+  });
+
+   var p2 = Promise.resolve(rooms);
+      p2.then(function(v) {
+      console.log(v[0]); // 1
+  });
+
+   
+    hej =  Promise.all(rooms);
     console.log(rooms);
+    console.log(hej);
     
     //.$timeout(3) ??????
   

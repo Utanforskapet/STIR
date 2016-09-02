@@ -83,15 +83,15 @@ promise.then(function(greeting) {
   }
 })*/
 
-
-  .factory('Chats', function($firebase, $firebaseAuth, $firebaseArray, $timeout, $firebaseObject) {
+/*
+  .service('Chats', function($firebase, $firebaseAuth, $firebaseArray, $timeout, $firebaseObject) {
    /*function getPromise() {
 
         return new Promise(function(resolve, reject) {
             var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10207972573965236");
             ref.on('child_added', resolve);
         });
-    }*/
+    }
     //facebook:10209542863159430 
   //  var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10209542863159430/-KOspZVS3qOMEWQuXope");
     var ref = new Firebase("https://stir.firebaseio.com/chats/facebook:10209542863159430/");
@@ -100,54 +100,47 @@ promise.then(function(greeting) {
    // hej = ref.child('-KOspZVS3qOMEWQuXope').set('message');
 
       var rooms = $firebaseArray(ref);
-
-      var obj = $firebaseObject(ref);
+      console.log(rooms);
+    //  var obj = $firebaseObject(ref);
 
      // to take an action after the data loads, use the $loaded() promise
-     obj.$loaded().then(function() {
-        console.log("loaded record:", obj.$id);
+     rooms.$loaded().then(function() {
+      //  console.log("loaded record:", rooms.$id);
 
        // To iterate the key/value pairs of the object, use angular.forEach()
-       angular.forEach(obj, function(value, key) {
-          console.log(key, value);
-       });
+       angular.forEach(rooms, function(value, key) {
+      //   console.log(key, value);   
+         console.log(rooms);  
+         all = function() {
+            return rooms;
+         } 
+         
      });
+     });
+*/
+    /*  var p2 = Promise.resolve(rooms);
+      p2.then(function(v) {
+      console.log(v[0]); // 1
+       return rooms;
+      });*/
 
      // To make the data available in the DOM, assign it to $scope
     // $scope.data = obj;
 
      // For three-way data bindings, bind it to the scope instead
     // obj.$bindTo($scope, "data");
-  
-
-
-
-  var p = Promise.resolve([1,2,3]);
-      p.then(function(v) {
-      console.log(v[0]); // 1
-  });
-
-   var p2 = Promise.resolve(rooms);
-      p2.then(function(v) {
-      console.log(v[0]); // 1
-  });
-
-   
-    hej =  Promise.all(rooms);
-    console.log(rooms);
-    console.log(hej);
-    
     //.$timeout(3) ??????
   
-    return {
+   /* return {
     all: function(){
-        return rooms;
+     return rooms;
+       
     },
     get: function (roomId) {
         // Simple index lookup
         return rooms.$getRecord(roomId);
     }
-    }
+    }*/
 /*
 
     function getArticlePromise(id) {
@@ -156,7 +149,7 @@ promise.then(function(greeting) {
           return snapshot.val();
           });
       }*/
-    })
+ //   })
 
 
 
@@ -383,6 +376,35 @@ promise.then(function(greeting) {
         } */
                // })
       //  })
+.factory('Chats', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var chats = [{
+    id: 0,
+    name: 'Ben Sparrow',
+    lastText: 'You on your way?',
+    face: 'img/ben.png'
+  
+  }];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    remove: function(chat) {
+      chats.splice(chats.indexOf(chat), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i];
+        }
+      }
+      return null;
+    }
+  };
+})
 
 
 .factory('Recipe', function() {
